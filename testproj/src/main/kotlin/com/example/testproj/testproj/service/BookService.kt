@@ -14,6 +14,7 @@ class BookService(private val bookRepository : BookRepository){
     }
 
     fun setBook(book : Book) : ResponseEntity<*>{
+        //if(book.content==null) book.content=""
         val src = bookRepository.save(book)
         return ResponseEntity.ok(src)
     }

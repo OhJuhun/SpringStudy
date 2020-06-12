@@ -1,16 +1,15 @@
 package com.example.testproj.testproj.entity
 
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.Table
+import java.time.LocalDate
+import javax.persistence.*
 
 @Entity
 @Table(name="rental")
 data class Rental(
         @Id
+        @GeneratedValue(strategy=GenerationType.IDENTITY)
         @Column(name="id")
-        val id: String,
+        val id: Int,
 
         @Column(name="userId")
         val userId: String,
@@ -19,11 +18,11 @@ data class Rental(
         val bookId: String,
 
         @Column(name="inDate")
-        val inDate: String,
+        var inDate: LocalDate?,
 
         @Column(name="outDate")
-        val outDate: String,
+        val outDate: LocalDate?,
 
         @Column(name="arrears")
-        val arrears: String
+        var arrears: String?
 )

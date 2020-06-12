@@ -5,6 +5,7 @@ import com.example.testproj.testproj.repository.RentalRepository
 import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
+import java.time.LocalDate
 
 @Service
 class RentalService(private val rentalRepository: RentalRepository){
@@ -13,8 +14,11 @@ class RentalService(private val rentalRepository: RentalRepository){
         return ResponseEntity.ok(rental);
     }
 
-    fun setRental(rental : Rental): ResponseEntity<*>{
+    fun setRental(inRental : Rental): ResponseEntity<*>{
+        var rental = Rental(inRental.id,inRental.userId,inRental.bookId, LocalDate.now(),null,null)
         val src = rentalRepository.save(rental)
         return ResponseEntity.ok(src)
     }
+
+    
 }
