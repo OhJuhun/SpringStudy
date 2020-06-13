@@ -12,8 +12,13 @@ import org.springframework.web.bind.annotation.*
 class RentalController(val rentalService: RentalService){
     @GetMapping
     fun getRental() : ResponseEntity<*> {
-        val rentals = rentalService.getRental()
+        val rentals = rentalService.getRentals()
         return ResponseEntity.ok(rentals)
+    }
+    @GetMapping("/findbyid")
+    fun getRentalById(id : Long) : ResponseEntity<*>{
+        val rental = rentalService.getRentalById(id)
+        return ResponseEntity.ok(rental)
     }
     @PostMapping
     fun setRental(@RequestBody rental : Rental) : ResponseEntity<*>{

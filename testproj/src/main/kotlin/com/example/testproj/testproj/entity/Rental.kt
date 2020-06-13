@@ -12,7 +12,7 @@ class Rental(
         @Id
         @GeneratedValue(strategy=GenerationType.IDENTITY)
         @Column(name="id")
-        val id: Int? = null,
+        val id: Long? = null,
 
         @Column(name="userId")
         val userId: String,

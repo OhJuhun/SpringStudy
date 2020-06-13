@@ -14,12 +14,13 @@ class User(
         val id: Long ? = null,
 
         @Column(name="name")
-        val name: String,
+        public val name: String,
 
         @Column(name="birthDate")
         val birthDate: String?
 )
 {
+
         override fun toString() = kotlinToString(properties = toStringProperties)
         override fun equals(other :Any?) = kotlinEquals(other = other, properties = equalsAndHashCodeProperties)
         override fun hashCode() = kotlinHashCode(properties = equalsAndHashCodeProperties)
@@ -32,4 +33,5 @@ class User(
                         User::birthDate
                 )
         }
+
 }

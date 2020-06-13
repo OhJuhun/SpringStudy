@@ -9,11 +9,16 @@ import java.time.LocalDate
 
 @Service
 class RentalService(private val rentalRepository: RentalRepository){
-    fun getRental(): ResponseEntity<*> {
-        val rental = rentalRepository.findAll()
-        return ResponseEntity.ok(rental);
+    fun getRentals(): ResponseEntity<*> {
+        val rentals = rentalRepository.findAll()
+        return ResponseEntity.ok(rentals);
     }
 
+    fun getRentalById(id :Long): ResponseEntity<*>{
+        val rental = rentalRepository.findById(id)
+        return ResponseEntity.ok(rental)
+
+    }
     fun setRental(inRental : Rental): ResponseEntity<*>{
         var rental = Rental(inRental.id,inRental.userId,inRental.bookId, LocalDate.now())
 

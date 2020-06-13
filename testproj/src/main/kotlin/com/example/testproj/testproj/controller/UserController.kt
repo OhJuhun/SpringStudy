@@ -12,10 +12,16 @@ import org.springframework.web.bind.annotation.*
 class UserController(val userService: UserService) {
     @GetMapping()
     fun getUsers(): ResponseEntity<*>{
-        val users = userService.getUser()
+        val users = userService.getUsers()
         return ResponseEntity.ok(users)
     }
 
+    @GetMapping("/findbyid")
+    fun getUserById(id: Long): ResponseEntity<*>{
+        val user = userService.getUserById(id)
+        println("Controller" + user.toString())
+        return ResponseEntity.ok(user)
+    }
     @PostMapping()
     fun setUsers(@RequestBody user:User): ResponseEntity<*>{
         val users = userService.setUser(user)

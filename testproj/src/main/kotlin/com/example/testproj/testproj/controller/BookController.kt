@@ -12,14 +12,20 @@ import org.springframework.web.bind.annotation.*
 class BookController(val bookService: BookService){
     @GetMapping
     fun getBooks() : ResponseEntity<*>{
-        val books = bookService.getBook()
+        val books = bookService.getBooks()
         return ResponseEntity.ok(books)
     }
 
+    @GetMapping("/findbyid")
+    fun getBook(@RequestBody id: Long) :ResponseEntity<*>{
+        val book = bookService.getBookById(id)!! //NOT NULL이어야 리턴이 가능하다.
+        return ResponseEntity.ok(book);
+
+    }
     @PostMapping
     fun setBooks(@RequestBody book : Book) : ResponseEntity<*>{
         val src = bookService.setBook(book)
         return ResponseEntity.ok(src)
     }
-    
+
 }
