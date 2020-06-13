@@ -15,10 +15,12 @@ class RentalService(private val rentalRepository: RentalRepository){
     }
 
     fun setRental(inRental : Rental): ResponseEntity<*>{
-        var rental = Rental(inRental.id,inRental.userId,inRental.bookId, LocalDate.now(),null,null)
+        var rental = Rental(inRental.id,inRental.userId,inRental.bookId, LocalDate.now())
+
         val src = rentalRepository.save(rental)
+
         return ResponseEntity.ok(src)
     }
 
-    
+
 }

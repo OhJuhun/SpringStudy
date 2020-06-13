@@ -6,15 +6,24 @@ plugins {
 	id("io.spring.dependency-management") version "1.0.9.RELEASE"
 	kotlin("jvm") version "1.3.72"
 	kotlin("plugin.spring") version "1.3.72"
-	kotlin("plugin.jpa") version "1.3.72" // <-- 추가됨
+	kotlin("plugin.jpa") version "1.3.72" // jpa
+	kotlin("plugin.allopen") version "1.3.72" //allopen for hibernate lazy loading
+	kotlin("plugin.noarg") version "1.3.72" //no arg constructor for hibernate lazy loading
 }
 
+allOpen{
+	annotation("javax.persistence.Entity") //allopen
+}
+noArg{
+	annotation("javax.persistence.Entity") //no arg constructor
+}
 group = "com.example.testproj"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
 	mavenCentral()
+	jcenter()
 }
 
 dependencies {
@@ -26,8 +35,10 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
-	implementation("mysql:mysql-connector-java") //mysql
+	implementation("au.com.console:kassava:2.1.0-rc.1")
+	//kassava for tostring hashcode equals over 2.1 (kotlin) 2.0 -> have to define hashcode
 
+	implementation("mysql:mysql-connector-java") //mysql
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 	}

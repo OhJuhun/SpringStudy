@@ -7,7 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest
 class TestprojApplicationTests {
 
 	@Test
-	fun contextLoads() {
+	fun `toString - What is This `() {
+
 	}
 
 }

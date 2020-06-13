@@ -12,7 +12,11 @@ class BookService(private val bookRepository : BookRepository){
         val books = bookRepository.findAll()
         return ResponseEntity.ok(books)
     }
-
+//    fun getBookByIsbn(isbn :String) :ResponseEntity<*>{
+//        val books = bookRepository(
+// have to add qentity
+//        )
+//    }
     fun setBook(book : Book) : ResponseEntity<*>{
         //if(book.content==null) book.content=""
         val src = bookRepository.save(book)
