@@ -11,13 +11,13 @@ class User(
         @Id
         @GeneratedValue(strategy= GenerationType.IDENTITY)
         @Column(name="id")
-        private val id: Long ? = null,
+        val id: Long ? = null,
 
         @Column(name="name")
-        private val name: String,
+        val name: String,
 
         @Column(name="birthDate")
-        private val birthDate: String?
+        val birthDate: String?
 )
 {
         override fun toString() = kotlinToString(properties = toStringProperties)
