@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/book")
 class BookController(val bookService: BookService){
     @GetMapping
-    fun getBooks() : ResponseEntity<*>{ //모든 책 정보 조
+    fun getBooks() : ResponseEntity<*>{ //모든 책 정보 조회
         val books = bookService.getBooks()
         return ResponseEntity.ok(books)
     }

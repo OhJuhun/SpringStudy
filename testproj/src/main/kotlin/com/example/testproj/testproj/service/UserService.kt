@@ -7,18 +7,21 @@ import org.springframework.stereotype.Service
 
 @Service
 class UserService(private val userRepository: UserRepository){
-    fun getUsers() : ResponseEntity<*>{
+    fun getUsers() : List<User>{ //이게 맞는지 ResponseEntity가 맞는지?
         val users = userRepository.findAll()
-        return ResponseEntity.ok(users)
+        return users
     }
 
-    fun getUserById(id : Long) : ResponseEntity<*>{
-        val user = userRepository.findById(id)
-        return ResponseEntity.ok(user)
+    fun setUser(user : User): String{
+        try {
+            userRepository.save(user)
+        }catch(e:Exception){
+            return e.toString()
+        }
+        return "200"
     }
 
-    fun setUser(user : User) : ResponseEntity<*>{
-        val src = userRepository.save(user)
-        return ResponseEntity.ok(src)
+    fun getUserNameByUId(uid: String) : String{
+        return "1111"
     }
 }

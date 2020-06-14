@@ -18,6 +18,13 @@ class UserController(val userService: UserService) {
     @PostMapping() //유저 정보 삽입
     fun setUsers(@RequestBody user:User): ResponseEntity<*>{
         val users = userService.setUser(user)
+        if(users!="200") return ResponseEntity.ok(users) //이건 좀 이상해
         return ResponseEntity.ok(users)
+    }
+
+    @GetMapping("/findnamebyuid")
+    fun getUser(@RequestBody uid: String): ResponseEntity<*>{
+        val userName = userService.getUserNameByUId(uid)
+        return ResponseEntity.ok(userName)
     }
 }

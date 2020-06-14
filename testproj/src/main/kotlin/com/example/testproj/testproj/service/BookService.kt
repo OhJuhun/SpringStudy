@@ -9,13 +9,13 @@ import org.springframework.stereotype.Service
 
 @Service
 class BookService(private val bookRepository : BookRepository){
-    fun getBooks() : ResponseEntity<*>{
+    fun getBooks() :List<Book>{
         val books = bookRepository.findAll()
-        return ResponseEntity.ok(books)
+        return books
     }
 
-    fun setBook(book : Book) : ResponseEntity<*>{
-        val src = bookRepository.save(book)
-        return ResponseEntity.ok(src)
+    fun setBook(book : Book) : Boolean{
+        bookRepository.save(book)
+        return true
     }
 }

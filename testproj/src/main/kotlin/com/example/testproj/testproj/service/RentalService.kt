@@ -9,22 +9,19 @@ import java.time.LocalDate
 
 @Service
 class RentalService(private val rentalRepository: RentalRepository){
-    fun getRentals(): ResponseEntity<*> {
+    fun getRentals(): List<Rental> {
         val rentals = rentalRepository.findAll()
-        return ResponseEntity.ok(rentals);
+        return rentals
     }
 
-    fun getRentalById(id :Long): ResponseEntity<*>{
-        val rental = rentalRepository.findById(id)
-        return ResponseEntity.ok(rental)
-
-    }
-    fun setRental(inRental : Rental): ResponseEntity<*>{
+    fun setRental(inRental : Rental) :Boolean{
         var rental = Rental(inRental.id,inRental.userId,inRental.bookId, LocalDate.now())
-
-        val src = rentalRepository.save(rental)
-
-        return ResponseEntity.ok(src)
+        try {
+            rentalRepository.save(rental)
+        }catch(e:Exception){
+            return false;
+        }
+        return true
     }
 
 
