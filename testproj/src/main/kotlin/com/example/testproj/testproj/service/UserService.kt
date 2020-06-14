@@ -22,6 +22,12 @@ class UserService(private val userRepository: UserRepository){
     }
 
     fun getUserNameByUId(uid: String) : String{
-        return "1111"
+        val users = userRepository.findAll()
+        for(user in users){
+            if(user.uid.equals(uid)){
+                return user.name
+            }
+        }
+        return "not found exception"
     }
 }
