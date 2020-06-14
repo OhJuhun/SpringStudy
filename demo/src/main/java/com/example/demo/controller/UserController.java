@@ -20,7 +20,7 @@ public class UserController {
     private ResponseEntity<List<User>> getAll(){
         return ResponseEntity.ok(userService.getUsers());
     }
-
+    
     @GetMapping("/getByName")
     private ResponseEntity<Optional<User>> getByName(@RequestParam String name){
         return ResponseEntity.ok(userService.getUserByName(name));
@@ -40,4 +40,6 @@ public class UserController {
     private void delete(@RequestParam Long uid){
         userService.deleteUser(uid);
     }
+    
+    
 }

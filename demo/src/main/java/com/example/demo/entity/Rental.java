@@ -20,7 +20,7 @@ public class Rental {
     @Column(name="rentdate")
     private LocalDate rentDate;
 
-    @Column(name="returnDate")
+    @Column(name="returndate")
     private LocalDate returnDate;
 
     public Long getId() {
