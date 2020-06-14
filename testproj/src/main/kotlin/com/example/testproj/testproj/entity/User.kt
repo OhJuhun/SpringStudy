@@ -13,11 +13,16 @@ class User(
         @Column(name="id")
         val id: Long ? = null,
 
+        @Column(name="uid")
+        val uid: String,
         @Column(name="name")
-        public val name: String,
+        val name: String,
 
-        @Column(name="birthDate")
-        val birthDate: String?
+        @Column(name="password")
+        val password: String,
+
+        @Column(name="current")
+        val current: Long = 0
 )
 {
 
@@ -29,8 +34,10 @@ class User(
                 private val equalsAndHashCodeProperties = arrayOf(User::id)
                 private val toStringProperties = arrayOf(
                         User::id,
+                        User::uid,
                         User::name,
-                        User::birthDate
+                        User::password,
+                        User::current
                 )
         }
 

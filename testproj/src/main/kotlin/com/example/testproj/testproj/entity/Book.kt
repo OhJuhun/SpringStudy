@@ -16,8 +16,8 @@ class Book(
         val name: String,
         @Column(name="isbn")
         val isbn: String,
-        @Column(name="content")
-        val content: String?
+        @Column(name="quantity")
+        val quantity: Long
 ){
         override fun toString() = kotlinToString(properties = toStringProperties)
         override fun equals(other: Any?) = kotlinEquals(other = other, properties = equalsAndHashCodeProperties)
@@ -29,7 +29,7 @@ class Book(
                         Book::id,
                         Book::name,
                         Book::isbn,
-                        Book::content
+                        Book::quantity
                 )
         }
 }

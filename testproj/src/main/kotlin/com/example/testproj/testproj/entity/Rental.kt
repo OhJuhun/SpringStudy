@@ -24,10 +24,7 @@ class Rental(
         var inDate: LocalDate?,
 
         @Column(name="outDate")
-        var outDate: LocalDate? = null,
-
-        @Column(name="arrears")
-        var arrears: String? = null
+        var outDate: LocalDate? = null
 ){
         override fun toString() = kotlinToString(properties = toStringProperties)
 
@@ -42,8 +39,7 @@ class Rental(
                         Rental::userId,
                         Rental::bookId,
                         Rental::inDate,
-                        Rental::outDate,
-                        Rental::arrears
+                        Rental::outDate
                 )
         }
 

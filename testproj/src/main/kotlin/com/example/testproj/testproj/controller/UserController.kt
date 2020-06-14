@@ -19,7 +19,6 @@ class UserController(val userService: UserService) {
     @GetMapping("/findbyid")
     fun getUserById(id: Long): ResponseEntity<*>{
         val user = userService.getUserById(id)
-        println("Controller" + user.toString())
         return ResponseEntity.ok(user)
     }
     @PostMapping()

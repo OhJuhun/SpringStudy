@@ -1,9 +1,10 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.boot.gradle.tasks.run.BootRun
-
+import org.springframework.boot.gradle.tasks.bundling.BootJar
 plugins {
 	id("org.springframework.boot") version "2.3.0.RELEASE"
 	id("io.spring.dependency-management") version "1.0.9.RELEASE"
+	id("java") //to make jar
 	kotlin("jvm") version "1.3.72"
 	kotlin("plugin.spring") version "1.3.72"
 	kotlin("plugin.jpa") version "1.3.72" // jpa
@@ -11,6 +12,7 @@ plugins {
 	kotlin("plugin.noarg") version "1.3.72" //no arg constructor for hibernate lazy loading
 }
 
+apply(plugin = "io.spring.dependency-management") //to make jar
 allOpen{
 	annotation("javax.persistence.Entity") //allopen
 }
@@ -25,7 +27,6 @@ repositories {
 	mavenCentral()
 	jcenter()
 }
-
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa") // jpa
@@ -57,4 +58,9 @@ tasks.withType<KotlinCompile> {
 
 tasks.getByName<BootRun>("bootRun") {
 	main = "com.example.testproj.testproj.TestprojApplicationKt"
+}
+
+tasks.getByName<BootJar>("bootJar"){ //to make jar
+	enabled = true
+	mainClassName = "com.example.testproj.testproj.TestprojApplicationKt"
 }
