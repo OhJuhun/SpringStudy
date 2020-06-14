@@ -15,16 +15,16 @@ class Rental(
         val id: Long? = null,
 
         @Column(name="userId")
-        val userId: String,
+        val userId: Long,
 
         @Column(name="bookId")
-        val bookId: String,
+        val bookId: Long,
 
-        @Column(name="inDate")
-        var inDate: LocalDate?,
+        @Column(name="rentDate")
+        var rentDate: LocalDate?,
 
-        @Column(name="outDate")
-        var outDate: LocalDate? = null
+        @Column(name="returnDate")
+        var returnDate: LocalDate? = null
 ){
         override fun toString() = kotlinToString(properties = toStringProperties)
 
@@ -38,8 +38,8 @@ class Rental(
                         Rental::id,
                         Rental::userId,
                         Rental::bookId,
-                        Rental::inDate,
-                        Rental::outDate
+                        Rental::rentDate,
+                        Rental::returnDate
                 )
         }
 

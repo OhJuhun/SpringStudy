@@ -11,7 +11,7 @@ class User(
         @Id
         @GeneratedValue(strategy= GenerationType.IDENTITY)
         @Column(name="id")
-        val id: Long ? = null,
+        val id: Long ? = null, //null로 생성해야 identity를 통해 증가
 
         @Column(name="uid")
         val uid: String,

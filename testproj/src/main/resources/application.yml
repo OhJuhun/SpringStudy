@@ -7,7 +7,7 @@ spring:
       ddl-auto: update
       use-new-id-generator-mappings: false
   datasource:
-    jdbcUrl: jdbc:mysql://127.0.0.1:3306/test?characterEncoding=UTF-8&serverTimezone=UTC
+    jdbcUrl: jdbc:mysql://127.0.0.1:3306/library?characterEncoding=UTF-8&serverTimezone=UTC
     username: root
     password: 1234
     platform: MySQL8InnoDBDialect

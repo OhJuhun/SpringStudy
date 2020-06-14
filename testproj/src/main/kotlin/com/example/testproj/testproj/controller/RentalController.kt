@@ -11,16 +11,12 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/rental")
 class RentalController(val rentalService: RentalService){
     @GetMapping
-    fun getRental() : ResponseEntity<*> {
+    fun getRental() : ResponseEntity<*> { //모든 rental 정보 조회
         val rentals = rentalService.getRentals()
         return ResponseEntity.ok(rentals)
     }
-    @GetMapping("/findbyid")
-    fun getRentalById(id : Long) : ResponseEntity<*>{
-        val rental = rentalService.getRentalById(id)
-        return ResponseEntity.ok(rental)
-    }
-    @PostMapping
+
+    @PostMapping //Rental 정보 삽임
     fun setRental(@RequestBody rental : Rental) : ResponseEntity<*>{
         val src = rentalService.setRental(rental)
         return ResponseEntity.ok(src)

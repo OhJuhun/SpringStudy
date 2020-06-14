@@ -12,14 +12,12 @@ internal class RentalTest @Autowired constructor(
 ){
     @Test
     internal fun getRentalByIdTest(){
-        val rental = rentalService.getRentalById(1L)
-        println(rental)
+
     }
 
     @Test
     internal fun getRentalTest(){
-        val rentals = rentalService.getRentals()
-        println(rentals)
+
     }
 
     @Test

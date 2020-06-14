@@ -13,8 +13,7 @@ internal class UserTest @Autowired constructor(
 
 	@Test
 	internal fun `findUserById() to test findById `(){
-		val user = userService.getUserById(1L)
-		println(user)
+
 		//How to write assertEquals
 	}
 	@Test

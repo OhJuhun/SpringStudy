@@ -11,17 +11,11 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/user")
 class UserController(val userService: UserService) {
     @GetMapping()
-    fun getUsers(): ResponseEntity<*>{
+    fun getUsers(): ResponseEntity<*>{ //모든 유저 조회
         val users = userService.getUsers()
         return ResponseEntity.ok(users)
     }
-
-    @GetMapping("/findbyid")
-    fun getUserById(id: Long): ResponseEntity<*>{
-        val user = userService.getUserById(id)
-        return ResponseEntity.ok(user)
-    }
-    @PostMapping()
+    @PostMapping() //유저 정보 삽입
     fun setUsers(@RequestBody user:User): ResponseEntity<*>{
         val users = userService.setUser(user)
         return ResponseEntity.ok(users)

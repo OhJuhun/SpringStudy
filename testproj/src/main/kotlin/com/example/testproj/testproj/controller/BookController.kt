@@ -11,18 +11,12 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/book")
 class BookController(val bookService: BookService){
     @GetMapping
-    fun getBooks() : ResponseEntity<*>{
+    fun getBooks() : ResponseEntity<*>{ //모든 책 정보 조
         val books = bookService.getBooks()
         return ResponseEntity.ok(books)
     }
 
-    @GetMapping("/findbyid")
-    fun getBook(@RequestBody id: Long) :ResponseEntity<*>{
-        val book = bookService.getBookById(id)!! //NOT NULL이어야 리턴이 가능하다.
-        return ResponseEntity.ok(book);
-
-    }
-    @PostMapping
+    @PostMapping //책 회정보 삽입
     fun setBooks(@RequestBody book : Book) : ResponseEntity<*>{
         val src = bookService.setBook(book)
         return ResponseEntity.ok(src)

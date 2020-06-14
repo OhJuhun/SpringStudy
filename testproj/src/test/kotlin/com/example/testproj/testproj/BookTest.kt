@@ -11,10 +11,8 @@ internal class BookTest @Autowired constructor(
 ){
     @Test
     internal fun getBookByIdTest(){
-        val book = bookService.getBookById(1L)
         //repository.findBookByIdOrNull이면 book.property가 가능하나
         //이렇게 짜면 불가능함. 이유가머지
-        println(book)
     }
     @Test
     internal fun getBookTest(){
