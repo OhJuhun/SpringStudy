@@ -27,7 +27,7 @@ class UserService(private val userRepository: UserRepository){
             if(user.uid.equals(uid)){
                 return user.name
             }
-        }
+        } //이건 안좋아
         return "not found exception"
     }
 }
