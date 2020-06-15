@@ -33,22 +33,37 @@ public class BookController {
         ResponseEntity<String> responseEntity = new ResponseEntity<String>(HttpStatus.OK);
         try {
             bookService.insertBook(book);
-        }
-        catch (Exception e){ //insert시 unique여야 하는 값이 중복될 수 있는  경우 Exception
-            HttpHeaders httpHeader = new HttpHeaders();
-            httpHeader.set(e.toString(),null);
-            responseEntity = new ResponseEntity<String>("duplicated",httpHeader,HttpStatus.NOT_ACCEPTABLE);
+        } catch (Exception e){ //insert시 unique여야 하는 값이 중복될 수 있는  경우 Exception
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.set(e.toString(),null);
+            responseEntity = new ResponseEntity<String>("duplicated",httpHeaders,HttpStatus.NOT_ACCEPTABLE);
         }
         return responseEntity;
     }
 
     @PutMapping
-    private void modifyBook(Book book){
-        bookService.modifyBook(book);
+    private ResponseEntity<String> modifyBook(Book book){
+        ResponseEntity<String> responseEntity = new ResponseEntity<String>(HttpStatus.OK);
+        try {
+            bookService.modifyBook(book);
+        } catch(Exception e){
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.set(e.toString(),null);
+            responseEntity = new ResponseEntity<String>("not found",httpHeaders,HttpStatus.NOT_FOUND);
+        }
+        return responseEntity;
     }
 
     @DeleteMapping
-    private void deleteBook(Long isbn){
-        bookService.deleteBook(isbn);
+    private ResponseEntity<String> deleteBook(Long isbn){
+        ResponseEntity<String> responseEntity = new ResponseEntity<String>(HttpStatus.OK);
+        try{
+            bookService.deleteBook(isbn);
+        } catch(Exception e){
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.set(e.toString(),null);
+            responseEntity = new ResponseEntity<String>("not found",httpHeaders,HttpStatus.NOT_FOUND);
+        }
+        return responseEntity;
     }
 }
