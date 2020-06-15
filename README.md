@@ -42,11 +42,11 @@
     ResponseEntity(msg,httpHeaders,httpStatus)  -> Best?
     ResponseEntity(httpStatus)
 ## EntityManager vs JpaRepository
-    EntityManager
-        인터페이스
-    JpaRepository (Spring Data JPA의 핵심)
-        위와 같은 인터페이스의 구현체 
+    EntityManager 인터페이스
+    JpaRepository (Spring Data JPA의 핵심) 위와 같은 인터페이스의 구현체 
+
     ![JPA vs Spring Data JPA](./mdresources/JPAvsSpringDataJPA.png)
+    
 # Error & Warn
 ## Error
     

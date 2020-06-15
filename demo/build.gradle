@@ -1,5 +1,5 @@
 plugins {
-	id 'org.springframework.boot' version '2.3.1.RELEASE'
+	id 'org.springframework.boot' version '2.3.1.RELEASE' //이것의 버전에 따라 라이브러리 버전 관리도 해줌.
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
 }
@@ -10,15 +10,16 @@ sourceCompatibility = '1.8'
 
 repositories {
 	mavenCentral()
-}
+} //이 Repository에서 Library를 다운 받겠다는 설정
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'mysql:mysql-connector-java'
-
+	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.6' // query log 값 보기
 	runtimeOnly 'com.h2database:h2'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
