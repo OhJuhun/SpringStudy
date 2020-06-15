@@ -1,7 +1,9 @@
+
+# Settings
+
 <details markdown="1">
 <summary>접기/펼치기</summary>
 
-# Settings
 ## Spring Web Starter
     RESTful API, Spring MVC 등에 필요
 ## Thymeleaf
@@ -45,16 +47,31 @@
     EntityManager 인터페이스
     JpaRepository (Spring Data JPA의 핵심) 위와 같은 인터페이스의 구현체 
 
-    ![JPA vs Spring Data JPA](./mdresources/JPAvsSpringDataJPA.png)
-    
+    ![JPAvsSpringDataJPA](./mdresources/JPAvsSpringDataJPA.png)
+</details>
+
+
 # Error & Warn
+
+</details>
+
+<details markdown="1">
+<summary>접기/펼치기</summary>
+
 ## Error
     
 ## Warn
 ### uses unchecked or unsafe operations
     경고 제거를 위해 raw Type -> Type 지정
     Ex) ResponseEntity -> ResponseEntity<Object>
+    
+</details>
+
 # Annotations
+
+<details markdown="1">
+<summary>접기/펼치기</summary>
+
 ## @Transactional
     트랜잭션화로 자동 RollBack이 가능하다.
     주로 modify, delete 등의 Query에 사용
