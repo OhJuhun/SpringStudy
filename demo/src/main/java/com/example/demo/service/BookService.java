@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookService {
@@ -17,6 +18,9 @@ public class BookService {
         return bookRepository.findAll();
     }
 
+    public Optional<Book> getByIsbn(String book){
+        return bookRepository.findByIsbn(book);
+    }
     public void insertBook(Book book){
         bookRepository.save(book);
     }
