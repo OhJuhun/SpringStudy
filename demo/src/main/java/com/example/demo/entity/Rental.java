@@ -8,19 +8,19 @@ import java.time.LocalDate;
 public class Rental {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name="id", nullable = false)
     private Long id = null;
 
-    @Column(name="userid")
+    @Column(name="userid",length = 20, nullable = false)
     private String userId;
 
-    @Column(name="bookid")
+    @Column(name="bookid",length = 20, nullable = false)
     private String bookId;
 
-    @Column(name="rentdate")
+    @Column(name="rentdate", nullable = true)
     private LocalDate rentDate;
 
-    @Column(name="returndate")
+    @Column(name="returndate", nullable = true)
     private LocalDate returnDate;
 
     public Long getId() {

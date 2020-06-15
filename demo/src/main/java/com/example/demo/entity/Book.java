@@ -8,16 +8,16 @@ import javax.persistence.*;
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name="id", nullable=false)
     private Long id = null;
 
-    @Column(name="name")
+    @Column(name="name", length=100, nullable = false)
     private String name;
 
-    @Column(name="isbn")
+    @Column(name="isbn",length=12, nullable = false)
     private String isbn;
 
-    @Column(name="quantity")
+    @Column(name="quantity", nullable = false)
     private Long quantity;
 
     public Long getId() {

@@ -8,19 +8,19 @@ import javax.persistence.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name="id", nullable = false)
     private Long id = null;
 
-    @Column(name="uid")
+    @Column(name="uid", length=20, nullable = false)
     private String uid;
 
-    @Column(name="name")
+    @Column(name="name", length=20, nullable = false)
     private String name;
 
-    @Column(name="password")
+    @Column(name="password", length=20, nullable = false)
     private String password;
 
-    @Column(name="current")
+    @Column(name="current", nullable = true)
     private Long current;
 
     public Long getId() {
