@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.3.1.RELEASE' //이것의 버전에 따라 라이브러리 버전 관리도 해줌.
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
+
 }
 
 group = 'com.example'
@@ -19,8 +20,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'mysql:mysql-connector-java'
+
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.6' // query log 값 보기
-	runtimeOnly 'com.h2database:h2'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
@@ -34,6 +35,13 @@ bootRun{
 	main = "com.example.demo.DemoApplication"
 }
 
-springBoot{
-	mainClassName = 'com.example.ExampleApplication'
+springBoot{ //gradlew build
+	mainClassName = 'com.example.DemoApplication'
+}
+
+bootJar { //gradlew build
+	mainClassName = 'com.example.demo.DemoApplication'
+	manifest {
+		attributes 'Start-Class': 'com.example.demo.DemoApplication'
+	}
 }

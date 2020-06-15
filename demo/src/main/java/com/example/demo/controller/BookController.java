@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.entity.Book;
 import com.example.demo.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,10 +34,15 @@ public class BookController {
         ResponseEntity<String> responseEntity = new ResponseEntity<String>(HttpStatus.OK);
         try {
             bookService.insertBook(book);
-        } catch (Exception e){ //insert시 unique여야 하는 값이 중복될 수 있는  경우 Exception
+        }catch (DataIntegrityViolationException e){ //데이터 통합 오류?
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.set(e.toString(),null);
             responseEntity = new ResponseEntity<String>("duplicated",httpHeaders,HttpStatus.NOT_ACCEPTABLE);
+        }
+        catch (Exception e){ //insert시 unique여야 하는 값이 중복될 수 있는  경우 Exception
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.set(e.toString(),null);
+            responseEntity = new ResponseEntity<String>("Error",httpHeaders,HttpStatus.NOT_ACCEPTABLE);
         }
         return responseEntity;
     }

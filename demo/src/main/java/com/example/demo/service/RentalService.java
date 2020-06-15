@@ -19,7 +19,7 @@ public class RentalService {
         return rentalRepository.findAll();
     }
 
-    public void insertrRental(Rental rental){
+    public void insertRental(Rental rental){
         rentalRepository.save(rental);
     }
 
