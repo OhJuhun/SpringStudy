@@ -37,7 +37,7 @@ public class BookController {
         catch (Exception e){ //insert시 unique여야 하는 값이 중복될 수 있는  경우 Exception
             HttpHeaders httpHeader = new HttpHeaders();
             httpHeader.set(e.toString(),null);
-            responseEntity = new ResponseEntity<String>("duplicated isbn\n",httpHeader,HttpStatus.NOT_ACCEPTABLE);
+            responseEntity = new ResponseEntity<String>("duplicated",httpHeader,HttpStatus.NOT_ACCEPTABLE);
         }
         return responseEntity;
     }

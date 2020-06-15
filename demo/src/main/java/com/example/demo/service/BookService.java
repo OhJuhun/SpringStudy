@@ -18,9 +18,11 @@ public class BookService {
         return bookRepository.findAll();
     }
 
-    public Optional<Book> getByIsbn(String book){
+    public Optional<Book> getByIsbn(String book) {
+        //optional 사용 : 없으면 null return 아닐 경우 없으면 [] 리턴
         return bookRepository.findByIsbn(book);
     }
+
     public void insertBook(Book book){
         bookRepository.save(book);
     }

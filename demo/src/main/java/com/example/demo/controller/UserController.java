@@ -24,8 +24,8 @@ public class UserController {
     }
     
     @GetMapping
-    private ResponseEntity<Optional<User>> getByName(@RequestParam String name){
-        //FindOne으로 하면 안됨
+    private ResponseEntity<List<User>> getByName(@RequestParam String name){
+        //한 사람이어도 여러개의 아이디가 있을 수 있음
         return ResponseEntity.ok(userService.getUserByName(name));
     }
 
@@ -36,6 +36,7 @@ public class UserController {
             if(user.getCurrent()==null) user.setCurrent(0L);
             userService.insertUser(user);
         }catch (Exception e){
+            //다양한 에러를 잡아주기 위해서는 다양한 Exception이 필요한데..
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.set(e.toString(),null);
             responseEntity = new ResponseEntity<String>("duplicated uid",httpHeaders,HttpStatus.NOT_ACCEPTABLE);
@@ -45,13 +46,29 @@ public class UserController {
     }
 
     @PutMapping
-    private void modify(@RequestBody User user){
-        userService.modifyUser(user);
+    private ResponseEntity<String> modify(@RequestBody User user){
+        ResponseEntity<String> responseEntity = new ResponseEntity<String>(HttpStatus.OK);
+        try {
+            userService.modifyUser(user);
+        }catch (Exception e){
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.set(e.toString(),null);
+            responseEntity = new ResponseEntity<String>("not found",httpHeaders,HttpStatus.NOT_FOUND);
+        }
+        return responseEntity;
     }
 
     @DeleteMapping
-    private void delete(@RequestParam Long uid){
-        userService.deleteUser(uid);
+    private ResponseEntity<String> delete(@RequestParam Long uid){
+        ResponseEntity<String> responseEntity = new ResponseEntity<String>(HttpStatus.OK);
+        try {
+            userService.deleteUser(uid);
+        }catch (Exception e){
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.set(e.toString(),null);
+            responseEntity = new ResponseEntity<String>("not found",httpHeaders,HttpStatus.NOT_FOUND);
+        }
+        return responseEntity;
     }
     
     

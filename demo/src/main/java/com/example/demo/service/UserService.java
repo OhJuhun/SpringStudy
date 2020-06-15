@@ -19,7 +19,7 @@ public class UserService {
         return userRepository.findAll();
     } //문제 없음
 
-    public Optional<User> getUserByName(String name){
+    public List<User> getUserByName(String name){
         return userRepository.findByName(name);
     }
 
