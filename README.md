@@ -47,7 +47,7 @@
     EntityManager 인터페이스
     JpaRepository (Spring Data JPA의 핵심) 위와 같은 인터페이스의 구현체 
 
-    ![JPAvsSpringDataJPA](https://github.com/OhJuhun/SpringStudy/blob/master/mdresources/JPAvsSpringDataJPA.png)
+![JPAvsSpringDataJPA](https://github.com/OhJuhun/SpringStudy/blob/master/mdresources/JPAvsSpringDataJPA.png)
 </details>
 
 
