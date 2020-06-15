@@ -1,3 +1,6 @@
+<details markdown="1">
+<summary>접기/펼치기</summary>
+
 # Settings
 ## Spring Web Starter
     RESTful API, Spring MVC 등에 필요
@@ -38,7 +41,12 @@
     ResponseEntity.ok(Object)
     ResponseEntity(msg,httpHeaders,httpStatus)  -> Best?
     ResponseEntity(httpStatus)
-
+## EntityManager vs JpaRepository
+    EntityManager
+        인터페이스
+    JpaRepository (Spring Data JPA의 핵심)
+        위와 같은 인터페이스의 구현체 
+    ![JPA vs Spring Data JPA](./mdresources/JPAvsSpringDataJPA.png)
 # Error & Warn
 ## Error
     
@@ -56,3 +64,5 @@
      Spring Boot Test라는 것을 알림  
 ## @Embedded
 ## OneToMany OneToOne ManyToOne ManyToMany
+
+</details>
