@@ -23,6 +23,13 @@ public class Rental {
     @Column(name="return_date", nullable = true)
     private LocalDate returnDate;
 
+    @ManyToOne(targetEntity = User.class, fetch=FetchType.LAZY)
+    @JoinColumn(name="user_id",insertable = false, updatable = false)
+    private User user;
+
+    @ManyToOne(targetEntity = Book.class, fetch=FetchType.LAZY)
+    @JoinColumn(name="book_id",insertable = false, updatable = false)
+    private Book book;
 
     public Long getId() {
         return id;

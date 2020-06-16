@@ -24,7 +24,6 @@ public class RentalTest {
         rental.setBookId(1L);
         rental.setUserId(1L);
         rental.setRentDate(LocalDate.now());
-//        rentalService.getRentals();
         rentalService.insertRental(rental);
 
     }
