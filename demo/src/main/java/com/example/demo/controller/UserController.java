@@ -33,14 +33,13 @@ public class UserController {
     private ResponseEntity<String> insert(@RequestBody User user){
         ResponseEntity<String> responseEntity = new ResponseEntity<String>(HttpStatus.OK);
         try { //unique인 id에 대해 exception 발생 가능성이 존재
-            if(user.getCurrent()==null) user.setCurrent(0L);
             userService.insertUser(user);
         }catch (Exception e){
             //다양한 에러를 잡아주기 위해서는 다양한 Exception이 필요한데..
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.set(e.toString(),null);
             responseEntity = new ResponseEntity<String>("duplicated uid",httpHeaders,HttpStatus.NOT_ACCEPTABLE);
-            //이렇게 새로 new 해주는게 좋은 방식인
+            //이렇게 새로 new 해주는게 좋은 방식인가
         }
         return responseEntity;
     }

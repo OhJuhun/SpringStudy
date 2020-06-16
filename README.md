@@ -48,6 +48,10 @@
     JpaRepository (Spring Data JPA의 핵심) 위와 같은 인터페이스의 구현체 
 
 ![JPAvsSpringDataJPA](https://github.com/OhJuhun/SpringStudy/blob/master/mdresources/JPAvsSpringDataJPA.png)
+
+## Controller vs RestController
+    Controller      주로 view 반환 시 사용. Data 반환시 ResponseBody Annotation 추가
+    RestController  Controller에 ResponseBody가 추가된 것
 </details>
 
 
@@ -59,7 +63,8 @@
 <summary>접기/펼치기</summary>
 
 ## Error
-    
+### SQLGrammarException: could not extract ResultSet
+    Entity : Table 매핑이 잘못 되었을 때 발생
 ## Warn
 ### uses unchecked or unsafe operations
     경고 제거를 위해 raw Type -> Type 지정
@@ -72,6 +77,8 @@
 <details markdown="1">
 <summary>접기/펼치기</summary>
 
+## **** @Autowired ****
+    타입과 맞는 것을 찾아 자동 연결
 ## @Transactional
     트랜잭션화로 자동 RollBack이 가능하다.
     주로 modify, delete 등의 Query에 사용
@@ -80,6 +87,19 @@
 ## @RunWith(class)
      Spring Boot Test라는 것을 알림  
 ## @Embedded
-## OneToMany OneToOne ManyToOne ManyToMany
 
+## JoinColumn
+    객체간 관계 설정 후 매핑할 때 사용
+    OneToMany 관계에서 필수적으로 설정되어야 함
+## @OneToOne
+
+## @OneToMany
+    1:N 관계
+    User -< Rental
+    양방향일 경우 MappedBy로 매핑
+## @ManyToOne
+    N:1 관계
+    Rental -< User
+## @ManyToMany
+    
 </details>

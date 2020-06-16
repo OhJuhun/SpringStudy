@@ -8,7 +8,7 @@ import javax.persistence.*;
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id", nullable=false)
+    @Column(name="book_id", nullable=false)
     private Long id = null;
 
     @Column(name="name", length=100, nullable = false)
@@ -17,7 +17,7 @@ public class Book {
     @Column(name="isbn",length=12, nullable = false)
     private String isbn;
 
-    @Column(name="quantity", nullable = false)
+    @Column(name="quantity", nullable = true)
     private Long quantity;
 
     public Long getId() {

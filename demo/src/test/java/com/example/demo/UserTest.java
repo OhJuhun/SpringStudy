@@ -8,19 +8,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
-@Transactional
 public class UserTest {
     @Autowired
     UserService userService;
 
     @Test
     void insert(){
-        User user= new User();
-        user.setCurrent(0L);
-        user.setUid("ohjuhun");
-        user.setName("주훈");
-        user.setPassword("12345");
-
+        User user = new User();
+        user.setNickname("ojh031");
+        user.setName("오주훈");
+        user.setPassword("1q2w3e4r");
+        user.setEmail("ojh031@icloud.com");
 
         userService.insertUser(user);
     }

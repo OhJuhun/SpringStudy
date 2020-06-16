@@ -10,11 +10,11 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id", nullable = false)
+    @Column(name="user_id", nullable = false)
     private Long id = null;
 
-    @Column(name="uid", length=20, nullable = false)
-    private String uid;
+    @Column(name="nickname", length=20, nullable = false)
+    private String nickname;
 
     @Column(name="name", length=20, nullable = false)
     private String name;
@@ -22,8 +22,8 @@ public class User {
     @Column(name="password", length=20, nullable = false)
     private String password;
 
-    @Column(name="current", nullable = true)
-    private Long current;
+    @Column(name="email", length=20, nullable = false)
+    private String email;
 
     public Long getId() {
         return id;
@@ -33,13 +33,6 @@ public class User {
         this.id = id;
     }
 
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
 
     public String getName() {
         return name;
@@ -57,11 +50,19 @@ public class User {
         this.password = password;
     }
 
-    public Long getCurrent() {
-        return current;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setCurrent(Long current) {
-        this.current = current;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
