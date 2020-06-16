@@ -90,8 +90,8 @@
     Spring Boot Test라는 것을 알림  
 ## @Embedded, @Embeddable
     Value Type(Immutable 해야 함) 객체 사용시 적용 
-    Non-Arugment Contstructor -> protected
-    Agument Constructor -> public으로 선언
+    Non-Arugment Constructor -> protected
+    All-Argument Constructor -> public으로 선언
 
 ## JoinColumn
     객체간 관계 설정 후 매핑할 때 사용
@@ -99,15 +99,24 @@
 
 ### insertable, updatable
 
-## @OneToOne
-
-## @OneToMany
+## Reltation
+### ***** 모든 연관관계는 fetch = FetchType.LAZY *****
+    EAGER(즉시로딩)은 예측이 어렵고 어떤 SQL이 실행될 지 추적이 어렵다!! 특히 JPQL에서 N+1 문제 발생
+    하나를 가져오면 모든 연관 관계를 Join하여 다 긁어옴 
+    LAZY(지연로딩)에서 발생하는 문제는 Fetch Join으로 해결 가능!!
+### @OneToOne
+    Default : EAGER
+    CascadeType : Persist (저장)을 Mapping Entity에 전파한다.
+### @OneToMany
+    Default : LAZY
     1:N 관계
     User -< Rental
     양방향일 경우 MappedBy로 매핑
-## @ManyToOne
+### @ManyToOne
+    Default : EAGER
     N:1 관계
     Rental -< User
-## @ManyToMany
-    
+### @ManyToMany
+    Default : LAZY
+
 </details>
