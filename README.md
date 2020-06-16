@@ -90,7 +90,7 @@
     Spring Boot Test라는 것을 알림  
 ## @Embedded, @Embeddable
     Value Type(Immutable 해야 함) 객체 사용시 적용 
-    Non-Arugment Constructor -> protected
+    Non-Arugment Constructor r-> protected
     All-Argument Constructor -> public으로 선언
 
 ## JoinColumn

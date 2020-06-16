@@ -18,14 +18,21 @@ public class UserTest {
 
     @Test
     void insert(){
-        User user = new User();
-        user.setNickname("ojh031");
-        user.setName("오주훈");
-        user.setPassword("1q2w3e4r");
-        user.setEmail("ojh031@icloud.com");
-
-        System.out.println(controller.modifyEmail("ojh031","1q2w3e4r2","ojh0315@naver.com"));
+//        User user = new User();
+//        user.setNickname("ojh031");
+//        user.setName("오주훈");
+//        user.setPassword("1q2w3e4r");
+//        user.setEmail("ojh031@icloud.com");
+//
+//        System.out.println(controller.modifyEmail("ojh031","1q2w3e4r2","ojh0315@naver.com"));
 
         //userService.insertUser(user);
+    }
+    @Test
+    void modifyPasswordTest(){
+
+        System.out.println(controller.modifyPassword("ojh031","1q2w3e4r","dhwngns"));
+
+
     }
 }

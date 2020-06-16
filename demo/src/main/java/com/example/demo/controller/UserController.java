@@ -19,19 +19,19 @@ public class UserController {
     @Autowired
     private UserService userService; //query
 
-    @GetMapping("/")
-    private ResponseEntity<List<User>> getAll(){
+    @GetMapping()
+    public  ResponseEntity<List<User>> getAll(){
         return ResponseEntity.ok(userService.getUsers());
     }
     
-    @GetMapping
-    private ResponseEntity<List<User>> getByName(@RequestParam String name){
+    @GetMapping("/getByName")
+    public ResponseEntity<List<User>> getByName(@RequestParam String name){
         //한 사람이어도 여러개의 아이디가 있을 수 있음
         return ResponseEntity.ok(userService.getUserByName(name));
     }
 
     @PostMapping
-    private ResponseEntity<String> insert(@RequestBody User user){ //회원가입
+    public ResponseEntity<String> insert(@RequestBody User user){ //회원가입
         ResponseEntity<String> responseEntity = new ResponseEntity<String>(HttpStatus.OK);
         try {
             //unique인 id에 대해 exception 발생 가능성이 존재
@@ -46,16 +46,20 @@ public class UserController {
         return responseEntity;
     }
 
-    @PatchMapping
-    public ResponseEntity<User> modifyEmail(@RequestParam String nickname,
-                                          @RequestParam String password,
-                                          @RequestParam String newEmail){
+    @PatchMapping("/modifyEmail")
+    public ResponseEntity<User> modifyEmail(@RequestParam(name="nickname") String nickname,
+                                          @RequestParam(name="password") String password,
+                                          @RequestParam(name="newEmail") String newEmail){
         ResponseEntity<User> responseEntity = new ResponseEntity<User>(HttpStatus.OK);
         try{
-            Optional<User> user = userService.getUserByNickname(nickname);
+            Optional<User> user = userService.getUserByNickname(nickname); //유저까지 넣을 경우 맞아도 다시 조회해야함
+
+            if(user.get()==null){
+                throw new Exception("User Not Found");
+            }
             //matched user
-            if(!user.get().getPassword().equals(password)) {
-                throw new Exception("wrong password");
+            if(!checkCorrectPassword(password,user.get().getPassword())) {
+                throw new Exception("Password Not Correct");
             }
 
             user.get().setEmail(newEmail);
@@ -64,14 +68,43 @@ public class UserController {
         }catch (Exception e){
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.set(e.toString(),null);
-            responseEntity = new ResponseEntity<User>(HttpStatus.NOT_ACCEPTABLE);
+            responseEntity = new ResponseEntity<User>(HttpStatus.METHOD_NOT_ALLOWED);
         }
 
         return responseEntity;
     }
 
+    @PatchMapping("/modifyPassword")
+    public ResponseEntity<User> modifyPassword(@RequestParam(name="nickname") String nickname,
+                                               @RequestParam(name="password") String password,
+                                               @RequestParam(name="newEmail") String newPassword){
+        //겹치는 로직 존재
+        System.out.println("nickname: "+nickname);
+        ResponseEntity<User> responseEntity = new ResponseEntity<User>(HttpStatus.OK);
+        try{
+            Optional<User> user = userService.getUserByNickname(nickname);
+
+            if(user.get()==null){ //존재하지 않는 아이디
+                throw new Exception("User Not Found");
+            }
+
+            if(!checkCorrectPassword(user.get().getPassword(),password)){ //비밀번호가 틀림
+                throw new Exception("Password Not Correct");
+            }
+
+            user.get().setPassword(newPassword);
+            responseEntity = ResponseEntity.ok(userService.modifyPassword(user.get()));
+
+        } catch(Exception e){
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.set(e.toString(),null);
+            responseEntity = new ResponseEntity<User>(HttpStatus.METHOD_NOT_ALLOWED);
+        }
+        return responseEntity;
+    }
+
     @DeleteMapping
-    private ResponseEntity<String> delete(@RequestParam Long uid){
+    public ResponseEntity<String> delete(@RequestParam Long uid){
         ResponseEntity<String> responseEntity = new ResponseEntity<String>(HttpStatus.OK);
         try {
             userService.deleteUser(uid);
@@ -82,6 +115,12 @@ public class UserController {
         }
         return responseEntity;
     }
-    
+
+
+    private Boolean checkCorrectPassword(String inPassword, String password){
+        System.out.println(inPassword+" "+password);
+        System.out.println("checkCorrectPassword = "+inPassword.equals(password));
+        return inPassword.equals(password);
+    }
     
 }
