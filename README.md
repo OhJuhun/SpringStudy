@@ -65,6 +65,8 @@
 ## Error
 ### SQLGrammarException: could not extract ResultSet
     Entity : Table 매핑이 잘못 되었을 때 발생
+### DuplicateMappingException
+
 ## Warn
 ### uses unchecked or unsafe operations
     경고 제거를 위해 raw Type -> Type 지정
@@ -85,12 +87,18 @@
     Entity Manager에 의한 데이터 변경은 항상 Transaction 안에서 이루어 져야 함
     같은 영속성 Container에서 같은 Entity를 참조하면 같은 값
 ## @RunWith(class)
-     Spring Boot Test라는 것을 알림  
-## @Embedded
+    Spring Boot Test라는 것을 알림  
+## @Embedded, @Embeddable
+    Value Type(Immutable 해야 함) 객체 사용시 적용 
+    Non-Arugment Contstructor -> protected
+    Agument Constructor -> public으로 선언
 
 ## JoinColumn
     객체간 관계 설정 후 매핑할 때 사용
     OneToMany 관계에서 필수적으로 설정되어야 함
+
+### insertable, updatable
+
 ## @OneToOne
 
 ## @OneToMany
