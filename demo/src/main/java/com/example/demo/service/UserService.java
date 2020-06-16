@@ -7,9 +7,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
+
+
 
     @Autowired
     private UserRepository userRepository;
@@ -22,18 +25,23 @@ public class UserService {
         return userRepository.findByName(name);
     }
 
+    public Optional<User> getUserByNickname(String nickname){ return userRepository.findByNickname(nickname);}
     public void insertUser(User user){
         userRepository.save(user); //문제 없음
     }
 
     @Transactional
     public void deleteUser(Long uid){
-        //TO DO delete User by uid
+        //TODO delete User by uid
     }
 
     @Transactional
     public void modifyUser(User user){
-        //TO DO modify User by user info
+        //TODO modify User by user info
     }
 
+    public User modifyEmail(User user) {
+
+        return userRepository.save(user);
+    }
 }

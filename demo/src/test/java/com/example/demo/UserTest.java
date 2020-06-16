@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.controller.UserController;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,9 @@ public class UserTest {
     @Autowired
     UserService userService;
 
+    @Autowired
+    UserController controller;
+
     @Test
     void insert(){
         User user = new User();
@@ -20,6 +24,8 @@ public class UserTest {
         user.setPassword("1q2w3e4r");
         user.setEmail("ojh031@icloud.com");
 
-        userService.insertUser(user);
+        System.out.println(controller.modifyEmail("ojh031","1q2w3e4r2","ojh0315@naver.com"));
+
+        //userService.insertUser(user);
     }
 }

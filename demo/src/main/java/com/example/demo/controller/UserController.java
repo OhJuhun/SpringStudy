@@ -8,6 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sun.jvm.hotspot.oops.ExceptionTableElement;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,30 +31,42 @@ public class UserController {
     }
 
     @PostMapping
-    private ResponseEntity<String> insert(@RequestBody User user){
+    private ResponseEntity<String> insert(@RequestBody User user){ //회원가입
         ResponseEntity<String> responseEntity = new ResponseEntity<String>(HttpStatus.OK);
-        try { //unique인 id에 대해 exception 발생 가능성이 존재
+        try {
+            //unique인 id에 대해 exception 발생 가능성이 존재
             userService.insertUser(user);
         }catch (Exception e){
             //다양한 에러를 잡아주기 위해서는 다양한 Exception이 필요한데..
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.set(e.toString(),null);
-            responseEntity = new ResponseEntity<String>("duplicated uid",httpHeaders,HttpStatus.NOT_ACCEPTABLE);
+            responseEntity = new ResponseEntity<String>("duplicated",httpHeaders,HttpStatus.NOT_ACCEPTABLE);
             //이렇게 새로 new 해주는게 좋은 방식인가
         }
         return responseEntity;
     }
 
-    @PutMapping
-    private ResponseEntity<String> modify(@RequestBody User user){
-        ResponseEntity<String> responseEntity = new ResponseEntity<String>(HttpStatus.OK);
-        try {
-            userService.modifyUser(user);
+    @PatchMapping
+    public ResponseEntity<User> modifyEmail(@RequestParam String nickname,
+                                          @RequestParam String password,
+                                          @RequestParam String newEmail){
+        ResponseEntity<User> responseEntity = new ResponseEntity<User>(HttpStatus.OK);
+        try{
+            Optional<User> user = userService.getUserByNickname(nickname);
+            //matched user
+            if(!user.get().getPassword().equals(password)) {
+                throw new Exception("wrong password");
+            }
+
+            user.get().setEmail(newEmail);
+            responseEntity = ResponseEntity.ok(userService.modifyEmail(user.get()));
+
         }catch (Exception e){
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.set(e.toString(),null);
-            responseEntity = new ResponseEntity<String>("not found",httpHeaders,HttpStatus.NOT_FOUND);
+            responseEntity = new ResponseEntity<User>(HttpStatus.NOT_ACCEPTABLE);
         }
+
         return responseEntity;
     }
 
