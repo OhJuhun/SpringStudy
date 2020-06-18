@@ -84,14 +84,14 @@ public class BookController {
 
     @PatchMapping("/modifyQuantity")
     private ResponseEntity<Book> modifyBookQuantity(@RequestParam String isbn,
-                                                    @RequestParam Long quantity){
+                                                    @RequestParam Long newQuantity){
         ResponseEntity<Book> responseEntity = new ResponseEntity<Book>(HttpStatus.OK);
         try{
             Book book = bookService.getByIsbn(isbn);
             if(book==null){
                 throw new Exception("Book Not Found");
             }
-            book.setQuantity(quantity);
+            book.setQuantity(newQuantity);
             responseEntity = responseEntity.ok(bookService.modifyBook(book));
         } catch(Exception e){
             responseEntity = new ResponseEntity<Book>(HttpStatus.NOT_ACCEPTABLE);
