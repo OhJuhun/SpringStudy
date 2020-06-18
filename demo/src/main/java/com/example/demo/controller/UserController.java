@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sun.jvm.hotspot.oops.ExceptionTableElement;
 
+
 import java.util.List;
 import java.util.Optional;
 
@@ -19,9 +20,11 @@ public class UserController {
     @Autowired
     private UserService userService; //query
 
-    @GetMapping()
-    public  ResponseEntity<List<User>> getAll(){
-        return ResponseEntity.ok(userService.getUsers());
+    @GetMapping
+    public ResponseEntity<List<User>> getAll(){
+        List<User> result = userService.getUsers();
+        System.out.println(result);
+        return ResponseEntity.ok(result);
     }
     
     @GetMapping("/getByName")
@@ -79,7 +82,6 @@ public class UserController {
                                                @RequestParam(name="password") String password,
                                                @RequestParam(name="newEmail") String newPassword){
         //겹치는 로직 존재
-        System.out.println("nickname: "+nickname);
         ResponseEntity<User> responseEntity = new ResponseEntity<User>(HttpStatus.OK);
         try{
             Optional<User> user = userService.getUserByNickname(nickname);

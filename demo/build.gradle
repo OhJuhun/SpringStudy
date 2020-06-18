@@ -24,7 +24,11 @@ dependencies {
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.6' // query log 값 보기
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+		exclude module: 'junit5'
 	}
+	testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.6.2")
+	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.2")
+	testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.6.2")
 }
 
 test {

@@ -1,38 +1,48 @@
 package com.example.demo;
 
 import com.example.demo.controller.UserController;
-import com.example.demo.entity.User;
-import com.example.demo.service.UserService;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
-@SpringBootTest
-public class UserTest {
-    @Autowired
-    UserService userService;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+@ExtendWith(SpringExtension.class)
+//@WebMvcTest(UserController.class)
+public class UserTest extends AbstractControllerTest {
 
     @Autowired
-    UserController controller;
+    UserController userController;
+
+    @Override
+    protected Object controller(){
+        return userController;
+    }
 
     @Test
+    void findNameById() throws Exception{
+    }
+    @Test
+    void findAll() throws Exception {
+        userController.getAll();
+        mockMvc.perform(get("/user"))
+                .andExpect(content().string("ojh")); //이걸 해라
+    }
+    @Test
     void insert(){
-//        User user = new User();
-//        user.setNickname("ojh031");
-//        user.setName("오주훈");
-//        user.setPassword("1q2w3e4r");
-//        user.setEmail("ojh031@icloud.com");
-//
-//        System.out.println(controller.modifyEmail("ojh031","1q2w3e4r2","ojh0315@naver.com"));
 
-        //userService.insertUser(user);
     }
     @Test
     void modifyPasswordTest(){
 
-        System.out.println(controller.modifyPassword("ojh031","1q2w3e4r","dhwngns"));
+    }
 
+    @Test
+    void getByNameTest(){
 
     }
 }
