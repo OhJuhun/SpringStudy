@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.controller.UserController;
 import com.example.demo.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +24,10 @@ public abstract class AbstractControllerTest {
 
     abstract protected Object controller();
 
-    @MockBean
-    UserService userService;
-
-
     @BeforeEach
-    void setUp(){
+    protected void setUp(){
         mockMvc = MockMvcBuilders.standaloneSetup(controller())
-                .addFilter(new CharacterEncodingFilter(StandardCharsets.UTF_8.name(), true)) //한
+                .addFilter(new CharacterEncodingFilter(StandardCharsets.UTF_8.name(), true))
                 .alwaysDo(print()) //콘솔에 결과 출력
                 .build();
     }

@@ -12,8 +12,6 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-
-
     @Autowired
     private UserRepository userRepository;
 
@@ -47,5 +45,9 @@ public class UserService {
 
     public User modifyPassword(User user) {
         return userRepository.save(user);
+    }
+
+    public void deleteById(Long id){
+        userRepository.deleteById(id);
     }
 }

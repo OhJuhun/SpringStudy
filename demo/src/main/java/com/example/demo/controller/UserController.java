@@ -22,9 +22,7 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<List<User>> getAll(){
-        List<User> result = userService.getUsers();
-        System.out.println(result);
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(userService.getUsers());
     }
     
     @GetMapping("/getByName")
@@ -51,8 +49,8 @@ public class UserController {
 
     @PatchMapping("/modifyEmail")
     public ResponseEntity<User> modifyEmail(@RequestParam(name="nickname") String nickname,
-                                          @RequestParam(name="password") String password,
-                                          @RequestParam(name="newEmail") String newEmail){
+                                            @RequestParam(name="password") String password,
+                                            @RequestParam(name="newEmail") String newEmail){
         ResponseEntity<User> responseEntity = new ResponseEntity<User>(HttpStatus.OK);
         try{
             Optional<User> user = userService.getUserByNickname(nickname); //유저까지 넣을 경우 맞아도 다시 조회해야함
@@ -80,7 +78,7 @@ public class UserController {
     @PatchMapping("/modifyPassword")
     public ResponseEntity<User> modifyPassword(@RequestParam(name="nickname") String nickname,
                                                @RequestParam(name="password") String password,
-                                               @RequestParam(name="newEmail") String newPassword){
+                                               @RequestParam(name="newPassword") String newPassword){
         //겹치는 로직 존재
         ResponseEntity<User> responseEntity = new ResponseEntity<User>(HttpStatus.OK);
         try{
@@ -106,22 +104,28 @@ public class UserController {
     }
 
     @DeleteMapping
-    public ResponseEntity<String> delete(@RequestParam Long uid){
-        ResponseEntity<String> responseEntity = new ResponseEntity<String>(HttpStatus.OK);
+    public ResponseEntity<User> deleteByNickname(@RequestParam String nickname,
+                                                 @RequestParam String password){
+        ResponseEntity<User> responseEntity = new ResponseEntity<User>(HttpStatus.OK);
         try {
-            userService.deleteUser(uid);
+            Optional<User> user = userService.getUserByNickname(nickname);
+            if(user.get()==null){
+                throw new Exception("User Not Found");
+            }
+
+            if(!checkCorrectPassword(user.get().getPassword(),password)){
+                throw new Exception("Password Not Correct");
+            }
+            userService.deleteById(user.get().getId());
+
         }catch (Exception e){
-            HttpHeaders httpHeaders = new HttpHeaders();
-            httpHeaders.set(e.toString(),null);
-            responseEntity = new ResponseEntity<String>("not found",httpHeaders,HttpStatus.NOT_FOUND);
+            responseEntity = new ResponseEntity<User>(HttpStatus.METHOD_NOT_ALLOWED);
         }
         return responseEntity;
     }
 
 
     private Boolean checkCorrectPassword(String inPassword, String password){
-        System.out.println(inPassword+" "+password);
-        System.out.println("checkCorrectPassword = "+inPassword.equals(password));
         return inPassword.equals(password);
     }
     
