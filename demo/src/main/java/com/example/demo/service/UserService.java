@@ -29,25 +29,12 @@ public class UserService {
     }
 
     @Transactional
-    public void deleteUser(Long uid){
-        //TODO delete User by uid
+    public User modifyUser(User user) {
+        return userRepository.save(user);
     }
 
     @Transactional
-    public void modifyUser(User user){
-        //TODO modify User by user info
-    }
-
-    public User modifyEmail(User user) {
-
-        return userRepository.save(user);
-    }
-
-    public User modifyPassword(User user) {
-        return userRepository.save(user);
-    }
-
-    public void deleteById(Long id){
+    public void deleteUser(Long id){
         userRepository.deleteById(id);
     }
 }

@@ -18,24 +18,27 @@ public class BookService {
         return bookRepository.findAll();
     }
 
-    public Optional<Book> getByIsbn(String book) {
-        //optional 사용 : 없으면 null return 아닐 경우 없으면 [] 리턴
-        return bookRepository.findByIsbn(book);
+    public Book getByIsbn(String isbn) {
+        //optional 사용 : 없으면 null return 사용하지 않을 경우 없으면 [] 리턴
+        return bookRepository.findByIsbn(isbn);
     }
 
-    public void insertBook(Book book){
-        bookRepository.save(book);
+    public Book getByName(String name){
+        return bookRepository.findByName(name);
+    }
+
+    public Book insertBook(Book book){
+        return bookRepository.save(book);
     }
 
     @Transactional
-    public void deleteBook(Long isbn){
-        //TO DO : delete Using isbn
+    public void deleteBook(Long id){
+        bookRepository.deleteById(id);
     }
 
     @Transactional
-    public void modifyBook(Book book){
-        //TO DO : modify book info
+    public Book modifyBook(Book book){
+        return bookRepository.save(book);
     }
-
 
 }

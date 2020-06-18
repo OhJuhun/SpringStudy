@@ -32,16 +32,14 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<String> insert(@RequestBody User user){ //회원가입
-        ResponseEntity<String> responseEntity = new ResponseEntity<String>(HttpStatus.OK);
+    public ResponseEntity<User> insert(@RequestBody User user){ //회원가입
+        ResponseEntity<User> responseEntity = new ResponseEntity<User>(HttpStatus.OK);
         try {
             //unique인 id에 대해 exception 발생 가능성이 존재
             userService.insertUser(user);
         }catch (Exception e){
             //다양한 에러를 잡아주기 위해서는 다양한 Exception이 필요한데..
-            HttpHeaders httpHeaders = new HttpHeaders();
-            httpHeaders.set(e.toString(),null);
-            responseEntity = new ResponseEntity<String>("duplicated",httpHeaders,HttpStatus.NOT_ACCEPTABLE);
+            responseEntity = new ResponseEntity<User>(HttpStatus.METHOD_NOT_ALLOWED);
             //이렇게 새로 new 해주는게 좋은 방식인가
         }
         return responseEntity;
@@ -55,7 +53,7 @@ public class UserController {
         try{
             Optional<User> user = userService.getUserByNickname(nickname); //유저까지 넣을 경우 맞아도 다시 조회해야함
 
-            if(user.get()==null){
+            if(user.get()==null){ //잘못된 Optional 사용법
                 throw new Exception("User Not Found");
             }
             //matched user
@@ -64,12 +62,12 @@ public class UserController {
             }
 
             user.get().setEmail(newEmail);
-            responseEntity = ResponseEntity.ok(userService.modifyEmail(user.get()));
+            responseEntity = ResponseEntity.ok(userService.modifyUser(user.get()));
 
         }catch (Exception e){
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.set(e.toString(),null);
-            responseEntity = new ResponseEntity<User>(HttpStatus.METHOD_NOT_ALLOWED);
+            responseEntity = new ResponseEntity<User>(HttpStatus.NOT_ACCEPTABLE);
         }
 
         return responseEntity;
@@ -93,17 +91,17 @@ public class UserController {
             }
 
             user.get().setPassword(newPassword);
-            responseEntity = ResponseEntity.ok(userService.modifyPassword(user.get()));
+            responseEntity = responseEntity.ok(userService.modifyUser(user.get()));
 
         } catch(Exception e){
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.set(e.toString(),null);
-            responseEntity = new ResponseEntity<User>(HttpStatus.METHOD_NOT_ALLOWED);
+            responseEntity = new ResponseEntity<User>(HttpStatus.NOT_ACCEPTABLE);
         }
         return responseEntity;
     }
 
-    @DeleteMapping
+    @DeleteMapping //보통 비활성
     public ResponseEntity<User> deleteByNickname(@RequestParam String nickname,
                                                  @RequestParam String password){
         ResponseEntity<User> responseEntity = new ResponseEntity<User>(HttpStatus.OK);
@@ -116,10 +114,10 @@ public class UserController {
             if(!checkCorrectPassword(user.get().getPassword(),password)){
                 throw new Exception("Password Not Correct");
             }
-            userService.deleteById(user.get().getId());
+            userService.deleteUser(user.get().getId());
 
         }catch (Exception e){
-            responseEntity = new ResponseEntity<User>(HttpStatus.METHOD_NOT_ALLOWED);
+            responseEntity = new ResponseEntity<User>(HttpStatus.NOT_ACCEPTABLE);
         }
         return responseEntity;
     }

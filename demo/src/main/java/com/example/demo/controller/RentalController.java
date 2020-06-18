@@ -28,9 +28,7 @@ public class RentalController {
         try {
             rentalService.insertRental(rental);
         } catch(Exception e){
-            HttpHeaders httpHeaders = new HttpHeaders();
-            httpHeaders.set(e.toString(),null);
-            responseEntity = new ResponseEntity<String>("error",httpHeaders,HttpStatus.NOT_ACCEPTABLE);
+            responseEntity = new ResponseEntity<String>(HttpStatus.NOT_ACCEPTABLE);
         }
         return responseEntity;
     }

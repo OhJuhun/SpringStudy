@@ -20,55 +20,96 @@ public class BookController {
 
     @GetMapping
     private ResponseEntity<List<Book>> getBooks(){
-      //  new ResponseEntity<List<Book>>(null,must HttpHeaders, HttpStatus.BAD_REQUEST);
         return ResponseEntity.ok(bookService.getBooks());
     }
 
-    @GetMapping("/byIsbn")
-    private ResponseEntity<Optional<Book>> getByIsbn(@RequestParam String isbn){
+    @GetMapping("/getByIsbn")
+    private ResponseEntity<Book> getByIsbn(@RequestParam String isbn){ //무조건 하나만 return
         return ResponseEntity.ok(bookService.getByIsbn(isbn));
     }
+
+    @GetMapping("/getByName")
+    private ResponseEntity<Book> getByName(@RequestParam String name){
+        return ResponseEntity.ok(bookService.getByName(name));
+    }
     @PostMapping
-    private ResponseEntity<String> insertBook(@RequestBody Book book){
+    private ResponseEntity<Book> insertBook(@RequestBody Book book){
         //uses unchecked or unsafe operations 경고 제거를 위해 raw -> String Type 지정
-        ResponseEntity<String> responseEntity = new ResponseEntity<String>(HttpStatus.OK);
+        ResponseEntity<Book> responseEntity = new ResponseEntity<Book>(HttpStatus.OK);
+
         try {
-            bookService.insertBook(book);
+            responseEntity = responseEntity.ok(bookService.insertBook(book));
         }catch (DataIntegrityViolationException e){ //데이터 통합 오류?
-            HttpHeaders httpHeaders = new HttpHeaders();
-            httpHeaders.set(e.toString(),null);
-            responseEntity = new ResponseEntity<String>("duplicated",httpHeaders,HttpStatus.NOT_ACCEPTABLE);
+            responseEntity = new ResponseEntity<Book>(HttpStatus.METHOD_NOT_ALLOWED);
         }
         catch (Exception e){ //insert시 unique여야 하는 값이 중복될 수 있는  경우 Exception
-            HttpHeaders httpHeaders = new HttpHeaders();
-            httpHeaders.set(e.toString(),null);
-            responseEntity = new ResponseEntity<String>("Error",httpHeaders,HttpStatus.NOT_ACCEPTABLE);
+            responseEntity = new ResponseEntity<Book>(HttpStatus.METHOD_NOT_ALLOWED);
         }
         return responseEntity;
     }
 
-    @PutMapping
-    private ResponseEntity<String> modifyBook(Book book){
-        ResponseEntity<String> responseEntity = new ResponseEntity<String>(HttpStatus.OK);
+    @PatchMapping("/modifyName")
+    private ResponseEntity<Book> modifyBookName(@RequestParam String isbn,
+                                                @RequestParam String newName){
+        ResponseEntity<Book> responseEntity = new ResponseEntity<Book>(HttpStatus.OK);
         try {
-            bookService.modifyBook(book);
+            Book book = bookService.getByIsbn(isbn);
+            if(book==null){
+                throw new Exception("Book Not Found");
+            }
+            book.setName(newName);
+            responseEntity = responseEntity.ok(bookService.modifyBook(book));
         } catch(Exception e){
-            HttpHeaders httpHeaders = new HttpHeaders();
-            httpHeaders.set(e.toString(),null);
-            responseEntity = new ResponseEntity<String>("not found",httpHeaders,HttpStatus.NOT_FOUND);
+            responseEntity = new ResponseEntity<Book>(HttpStatus.NOT_ACCEPTABLE);
+        }
+        return responseEntity;
+    }
+
+    @PatchMapping("/modifyIsbn")
+    private ResponseEntity<Book> modifyBookIsbn(@RequestParam String isbn,
+                                                @RequestParam String newIsbn){
+        ResponseEntity<Book> responseEntity = new ResponseEntity<Book>(HttpStatus.OK);
+        try{
+            Book book = bookService.getByIsbn(isbn);
+            if(book==null){
+                throw new Exception("Book Not Found");
+            }
+            book.setIsbn(newIsbn);
+            responseEntity = responseEntity.ok(bookService.modifyBook(book));
+        } catch(Exception e){
+            responseEntity = new ResponseEntity<Book>(HttpStatus.NOT_ACCEPTABLE);
+        }
+        return responseEntity;
+    }
+
+    @PatchMapping("/modifyQuantity")
+    private ResponseEntity<Book> modifyBookQuantity(@RequestParam String isbn,
+                                                    @RequestParam Long quantity){
+        ResponseEntity<Book> responseEntity = new ResponseEntity<Book>(HttpStatus.OK);
+        try{
+            Book book = bookService.getByIsbn(isbn);
+            if(book==null){
+                throw new Exception("Book Not Found");
+            }
+            book.setQuantity(quantity);
+            responseEntity = responseEntity.ok(bookService.modifyBook(book));
+        } catch(Exception e){
+            responseEntity = new ResponseEntity<Book>(HttpStatus.NOT_ACCEPTABLE);
         }
         return responseEntity;
     }
 
     @DeleteMapping
-    private ResponseEntity<String> deleteBook(Long isbn){
-        ResponseEntity<String> responseEntity = new ResponseEntity<String>(HttpStatus.OK);
+    private ResponseEntity<Book> deleteBook(@RequestParam(name="isbn") String isbn){
+        ResponseEntity<Book> responseEntity = new ResponseEntity<Book>(HttpStatus.OK);
         try{
-            bookService.deleteBook(isbn);
+            Book book = bookService.getByIsbn(isbn);
+            if(book == null){
+                throw new Exception("Book Not Found");
+            }
+            bookService.deleteBook(book.getId());
         } catch(Exception e){
-            HttpHeaders httpHeaders = new HttpHeaders();
-            httpHeaders.set(e.toString(),null);
-            responseEntity = new ResponseEntity<String>("not found",httpHeaders,HttpStatus.NOT_FOUND);
+            responseEntity = new ResponseEntity<Book>(HttpStatus.NOT_ACCEPTABLE);
         }
         return responseEntity;
     }
