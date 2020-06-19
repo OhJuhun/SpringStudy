@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.Book;
+import com.example.demo.exception.NotFoundException;
 import com.example.demo.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -72,7 +73,7 @@ public class BookController {
         try{
             Book book = bookService.getByIsbn(isbn);
             if(book==null){
-                throw new Exception("Book Not Found");
+                throw new NotFoundException("Book Not Found");
             }
             book.setIsbn(newIsbn);
             responseEntity = responseEntity.ok(bookService.modifyBook(book));
@@ -89,7 +90,7 @@ public class BookController {
         try{
             Book book = bookService.getByIsbn(isbn);
             if(book==null){
-                throw new Exception("Book Not Found");
+                throw new NotFoundException("Book Not Found");
             }
             book.setQuantity(newQuantity);
             responseEntity = responseEntity.ok(bookService.modifyBook(book));
@@ -105,7 +106,7 @@ public class BookController {
         try{
             Book book = bookService.getByIsbn(isbn);
             if(book == null){
-                throw new Exception("Book Not Found");
+                throw new NotFoundException("Book Not Found");
             }
             bookService.deleteBook(book.getId());
         } catch(Exception e){

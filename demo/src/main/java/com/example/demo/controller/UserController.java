@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 
 import com.example.demo.entity.User;
+import com.example.demo.exception.NotCorrectException;
+import com.example.demo.exception.NotFoundException;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -53,11 +55,11 @@ public class UserController {
             Optional<User> user = userService.getUserByNickname(nickname); //유저까지 넣을 경우 맞아도 다시 조회해야함
 
             if(user.get()==null){ //잘못된 Optional 사용법
-                throw new Exception("User Not Found");
+                throw new NotFoundException("User Not Found");
             }
             //matched user
             if(!checkCorrectPassword(password,user.get().getPassword())) {
-                throw new Exception("Password Not Correct");
+                throw new NotCorrectException("Password Not Correct");
             }
 
             user.get().setEmail(newEmail);
@@ -82,11 +84,11 @@ public class UserController {
             Optional<User> user = userService.getUserByNickname(nickname);
 
             if(user.get()==null){ //존재하지 않는 아이디
-                throw new Exception("User Not Found");
+                throw new NotFoundException("User Not Found");
             }
 
             if(!checkCorrectPassword(user.get().getPassword(),password)){ //비밀번호가 틀림
-                throw new Exception("Password Not Correct");
+                throw new NotCorrectException("Password Not Correct");
             }
 
             user.get().setPassword(newPassword);
@@ -107,11 +109,11 @@ public class UserController {
         try {
             Optional<User> user = userService.getUserByNickname(nickname);
             if(user.get()==null){
-                throw new Exception("User Not Found");
+                throw new NotFoundException("User Not Found");
             }
 
             if(!checkCorrectPassword(user.get().getPassword(),password)){
-                throw new Exception("Password Not Correct");
+                throw new NotCorrectException("Password Not Correct");
             }
             userService.deleteUser(user.get().getId());
 

@@ -71,4 +71,39 @@ public class Rental {
         this.returnDate = returnDate;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
+
+    //create method
+    public static Rental createRental(User user, Book book){
+        Rental rental = new Rental();
+        rental.setUser(user);
+        rental.setBook(book);
+        rental.setRentDate(LocalDate.now());
+        book.rentBook(1L);
+
+        return rental;
+    }
+
+    //business Logic
+    //return book
+    public void renturnBook(){
+        this.setReturnDate(LocalDate.now());
+        this.book.returnBook(1L);
+    }
+
+
 }

@@ -1,6 +1,8 @@
 package com.example.demo.entity;
 
 
+import com.example.demo.exception.NotEnoughQuantityException;
+
 import javax.persistence.*;
 
 @Entity
@@ -50,5 +52,23 @@ public class Book {
 
     public void setQuantity(Long quantity) {
         this.quantity = quantity;
+    }
+
+    public void addQuantity(Long quantity){
+        this.quantity += quantity;
+    }
+
+    public void removeQuantity(Long quantity){
+        if(this.quantity-quantity<0) throw new NotEnoughQuantityException("there is no book");
+        this.quantity -= quantity;
+    }
+
+    //재고 수량 복귀
+    public void returnBook(Long quantity){
+        this.addQuantity(quantity);
+    }
+
+    public void rentBook(Long quantity){
+        this.removeQuantity(quantity);
     }
 }
