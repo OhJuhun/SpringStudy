@@ -7,7 +7,7 @@
 ## Spring Web Starter
     RESTful API, Spring MVC 등에 필요
 ## Thymeleaf
-    Serverside java template Engine
+    Serverside java template Engin
     Spring boot 등에서 JSP를 최근에 사용하지 않음
         장점
             Natural template (MarkUp을 깨지 않고 사용-> 웹브라우저에서 열림)
@@ -43,15 +43,28 @@
     ResponseEntity.ok(Object)
     ResponseEntity(msg,httpHeaders,httpStatus)  -> Best?
     ResponseEntity(httpStatus)
+
 ## EntityManager vs JpaRepository
     EntityManager 인터페이스
     JpaRepository (Spring Data JPA의 핵심) 위와 같은 인터페이스의 구현체 
 
 ![JPAvsSpringDataJPA](https://github.com/OhJuhun/SpringStudy/blob/master/mdresources/JPAvsSpringDataJPA.png)
 
+## Memory DB
+    Spring Boot 사용시 쉽게 사용가능
+
 ## Controller vs RestController
     Controller      주로 view 반환 시 사용. Data 반환시 ResponseBody Annotation 추가
     RestController  Controller에 ResponseBody가 추가된 것
+
+## Domain Model Pattern
+    Entity에 핵심 Business Logic을 몰아 넣어
+    Service에서 위임만 하여 사용할 수 있게 한다.
+    ORM 사용시 이 패턴을 많이 사용함
+    
+## Transaction Script Pattern
+    Entity에는 Business Logic이 거의 없고
+    Service에 몰아 넣어 처리한다.
 </details>
 
 
@@ -67,6 +80,8 @@
     Entity : Table 매핑이 잘못 되었을 때 발생
 ### DuplicateMappingException
 
+### IlligalStateException
+    중복된 값 insert시 발생시키는 Exception
 ## Warn
 ### uses unchecked or unsafe operations
     경고 제거를 위해 raw Type -> Type 지정
