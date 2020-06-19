@@ -8,8 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/rental")
@@ -23,40 +23,22 @@ public class RentalController {
     }
 
     @PostMapping
-    private ResponseEntity<String> insert(@RequestBody Rental rental){
-        ResponseEntity<String> responseEntity= new ResponseEntity<String>(HttpStatus.OK);
-        try {
-            rentalService.insertRental(rental);
-        } catch(Exception e){
-            responseEntity = new ResponseEntity<String>(HttpStatus.NOT_ACCEPTABLE);
-        }
+    private ResponseEntity<Rental> insert(@RequestBody Map<String, Object> body){ //그냥 Json으로 묶어서 보내는거보다 낫나
+        ResponseEntity<Rental> responseEntity = new ResponseEntity<Rental>(HttpStatus.OK);
+
         return responseEntity;
     }
 
     @PutMapping
-    private ResponseEntity<String> modify(@RequestBody Rental rental){
-        ResponseEntity<String> responseEntity= new ResponseEntity<String>(HttpStatus.OK);
-        try {
-            rental.setRentDate(LocalDate.now());
-            rentalService.modifyRental(rental);
-        } catch(Exception e){
-            HttpHeaders httpHeaders = new HttpHeaders();
-            httpHeaders.set(e.toString(),null);
-            responseEntity = new ResponseEntity<String>("error",httpHeaders,HttpStatus.NOT_ACCEPTABLE);
-        }
+    private ResponseEntity<Rental> modify(@RequestBody Map<String,Object> body){
+        ResponseEntity<Rental> responseEntity= new ResponseEntity<Rental>(HttpStatus.OK);
+        //TODO modify what?
         return responseEntity;
     }
 
     @DeleteMapping
-    private ResponseEntity<String> delete(@RequestParam Long id){
-        ResponseEntity<String> responseEntity= new ResponseEntity<String>(HttpStatus.OK);
-        try {
-            rentalService.deleteRental(id);
-        } catch(Exception e){
-            HttpHeaders httpHeaders = new HttpHeaders();
-            httpHeaders.set(e.toString(),null);
-            responseEntity = new ResponseEntity<String>("error",httpHeaders,HttpStatus.NOT_ACCEPTABLE);
-        }
+    private ResponseEntity<Rental> delete(@RequestParam Long id){
+        ResponseEntity<Rental> responseEntity = new ResponseEntity<Rental>(HttpStatus.OK);
         return responseEntity;
     }
 }

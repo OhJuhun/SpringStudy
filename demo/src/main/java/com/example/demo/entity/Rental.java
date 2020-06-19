@@ -2,10 +2,15 @@ package com.example.demo.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name="rental") //주인 Entity
 public class Rental {
+
+    protected Rental(){
+        //생성자로 생성하면 안되고 createRental로 생성
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="rental_id", nullable = false)
@@ -23,12 +28,12 @@ public class Rental {
     @Column(name="return_date", nullable = true)
     private LocalDate returnDate;
 
-    @ManyToOne(targetEntity = User.class, fetch=FetchType.LAZY)
+    @ManyToOne(targetEntity = User.class, fetch=FetchType.LAZY, cascade =CascadeType.ALL) //save시 같이 save
     @JoinColumn(name="user_id",insertable = false, updatable = false)
     private User user;
 
-    @ManyToOne(targetEntity = Book.class, fetch=FetchType.LAZY)
-    @JoinColumn(name="book_id",insertable = false, updatable = false)
+    @ManyToOne(targetEntity = Book.class, fetch=FetchType.LAZY, cascade =CascadeType.ALL) //무분별하게 사용은 ㄴㄴ
+    @JoinColumn(name="book_id",insertable = false, updatable = false)                   //다른 class에서 참조하면 각각 persist
     private Book book;
 
     public Long getId() {
@@ -104,6 +109,12 @@ public class Rental {
         this.setReturnDate(LocalDate.now());
         this.book.returnBook(1L);
     }
+
+//    //Rental status Search
+//    public List<Rental> findRentals(RentalSearch rentalSearch){
+        //TODO rental info (user_name, book_name,rental_date) 
+//        return rentalRepository();
+//    }
 
 
 }
