@@ -23,21 +23,28 @@ public class RentalController {
     }
 
     @PostMapping
-    private ResponseEntity<Rental> insert(@RequestBody Map<String, Object> body){ //그냥 Json으로 묶어서 보내는거보다 낫나
+    private ResponseEntity<Rental> retnBook(@RequestBody Map<String, Object> body){ //그냥 Json으로 묶어서 보내는거보다 낫나
         ResponseEntity<Rental> responseEntity = new ResponseEntity<Rental>(HttpStatus.OK);
-        rentalService.insertRental(body);
-
+        try {
+            rentalService.insertRental(body);
+        } catch(Exception e){
+            responseEntity = new ResponseEntity(e.toString(),HttpStatus.NOT_ACCEPTABLE);
+        }
         return responseEntity;
     }
 
     @PutMapping
-    private ResponseEntity<Rental> modify(@RequestBody Map<String,Object> body){
+    private ResponseEntity<Rental> returnBook(@RequestBody Map<String,Object> body){
         ResponseEntity<Rental> responseEntity= new ResponseEntity<Rental>(HttpStatus.OK);
-        //TODO modify what?
+        try{
+            rentalService.returnBook(body);
+        }catch(Exception e){
+
+        }
         return responseEntity;
     }
 
-    @DeleteMapping
+    @DeleteMapping //지울 일은 없음
     private ResponseEntity<Rental> delete(@RequestParam Long id){
         ResponseEntity<Rental> responseEntity = new ResponseEntity<Rental>(HttpStatus.OK);
         return responseEntity;

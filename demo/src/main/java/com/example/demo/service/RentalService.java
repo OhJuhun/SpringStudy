@@ -57,4 +57,17 @@ public class RentalService {
     public void deleteRental(Long id){
         rentalRepository.deleteById(id);
     }
+
+    @Transactional
+    public void returnBook(Map<String, Object> body){
+        Integer uid = (Integer)body.get("user_id");
+        Integer bid = (Integer)body.get("book_id");
+
+        Long userId = uid.longValue();
+        Long bookId = bid.longValue();
+        //이 둘을 기반으로 Query를 하려면 query dsl이 필요
+        //userId = user_id and bookId = book_id and return_date = null
+
+
+    }
 }
