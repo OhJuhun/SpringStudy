@@ -29,7 +29,7 @@ public class User {
         return id;
     }
 
-    public void setId(Long id) {
+    public void getId(Long id) {
         this.id = id;
     }
 

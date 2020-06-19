@@ -1,7 +1,9 @@
 package com.example.demo.service;
 
 
+import com.example.demo.entity.Book;
 import com.example.demo.entity.Rental;
+import com.example.demo.entity.User;
 import com.example.demo.repository.BookRepository;
 import com.example.demo.repository.RentalRepository;
 import com.example.demo.repository.UserRepository;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Transactional(readOnly = true)
@@ -32,7 +35,17 @@ public class RentalService {
     }
 
     @Transactional
-    public void insertRental(Rental rental){
+    public void insertRental(Map<String, Object> body){
+        Integer uid = (Integer)body.get("user_id");
+        Integer bid = (Integer)body.get("book_id");
+
+        Long userId = uid.longValue();
+        Long bookId = bid.longValue();
+        Optional<User> user = userRepository.findById(userId);
+        Optional<Book> book = bookRepository.findById(bookId);
+        System.out.println(user.get().getId());
+        System.out.println(book.get().getId());
+        Rental rental = Rental.createRental(user.get(),book.get());
         rentalRepository.save(rental);
     }
 

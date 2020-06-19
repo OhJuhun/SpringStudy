@@ -95,6 +95,8 @@ public class Rental {
     //create method
     public static Rental createRental(User user, Book book){
         Rental rental = new Rental();
+        rental.setUserId(user.getId());
+        rental.setBookId(book.getId());
         rental.setUser(user);
         rental.setBook(book);
         rental.setRentDate(LocalDate.now());
@@ -112,7 +114,7 @@ public class Rental {
 
 //    //Rental status Search
 //    public List<Rental> findRentals(RentalSearch rentalSearch){
-        //TODO rental info (user_name, book_name,rental_date) 
+        //TODO rental info (user_name, book_name,rental_date)
 //        return rentalRepository();
 //    }
 
