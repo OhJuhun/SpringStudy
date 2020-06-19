@@ -9,10 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional(readOnly = true)
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
+
 
     @Autowired
     public UserService(UserRepository userRepository){
@@ -27,6 +29,8 @@ public class UserService {
     }
 
     public Optional<User> getUserByNickname(String nickname){ return userRepository.findByNickname(nickname);}
+
+    @Transactional
     public void insertUser(User user){
         userRepository.save(user); //문제 없음
     }

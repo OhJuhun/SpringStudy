@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional(readOnly = true)
 @Service
 public class RentalService {
 
@@ -30,6 +31,7 @@ public class RentalService {
         return rentalRepository.findAll();
     }
 
+    @Transactional
     public void insertRental(Rental rental){
         rentalRepository.save(rental);
     }

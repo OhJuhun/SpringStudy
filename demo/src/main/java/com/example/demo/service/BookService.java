@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional(readOnly = true)
 @Service
 public class BookService {
     private final BookRepository bookRepository;
@@ -30,6 +31,7 @@ public class BookService {
         return bookRepository.findByName(name);
     }
 
+    @Transactional
     public Book insertBook(Book book){
         return bookRepository.save(book);
     }
