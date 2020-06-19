@@ -11,9 +11,12 @@ import java.util.Optional;
 
 @Service
 public class BookService {
-    @Autowired
-    BookRepository bookRepository;
+    private final BookRepository bookRepository;
 
+    @Autowired
+    public BookService(BookRepository bookRepository){
+        this.bookRepository = bookRepository; //생성자에서 주입
+    }
     public List<Book> getBooks(){
         return bookRepository.findAll();
     }

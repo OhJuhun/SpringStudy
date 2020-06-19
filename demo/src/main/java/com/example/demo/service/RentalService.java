@@ -2,7 +2,9 @@ package com.example.demo.service;
 
 
 import com.example.demo.entity.Rental;
+import com.example.demo.repository.BookRepository;
 import com.example.demo.repository.RentalRepository;
+import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,8 +14,17 @@ import java.util.Optional;
 
 @Service
 public class RentalService {
+
+    private final RentalRepository rentalRepository;
+    private final BookRepository bookRepository;
+    private final UserRepository userRepository;
+
     @Autowired
-    RentalRepository rentalRepository;
+    public RentalService(RentalRepository rentalRepository, UserRepository userRepository, BookRepository bookRepository){
+        this.rentalRepository = rentalRepository;
+        this.bookRepository = bookRepository;
+        this.userRepository = userRepository;
+    }
 
     public List<Rental> getRentals(){
         return rentalRepository.findAll();
