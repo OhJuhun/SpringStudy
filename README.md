@@ -65,9 +65,54 @@
 ## Transaction Script Pattern
     Entity에는 Business Logic이 거의 없고
     Service에 몰아 넣어 처리한다.
+
+## Validation
+    FE -> Server side와 통신하지 않아도 되므로 속도가 빠름(보안 취약)
+    BE -> 복잡한 화면 구성에 있어서는 어려운 점이 존재
+    --> 둘을 적절하게 섞어서 활용(Trade Off)하는 것이 속도, 보안성 측면에서 유리
+
+## UserForm과 UserEntity를 나누어 개발하는 이유
+    두 곳에서 원하는 Validiation이 서로 다를 수 있음
+    Entity에서 다른 Entity와 관계를 맺고 있다면 삽입되는 Field와 Entity Field가 차이날 수 있다.
+    Entity는 다른 곳에 Dependency가 없이, 핵심 Business Logic에만 Dependency를 갖게 설계
+    --> DTO(Getter Setter만 있는 Object == UserForm)
+    특히 API 설계시에는 ***** 절대 Entity를 넘기면 안된다 *****
+    API Spec이 변할 수 있고, Password 등이 노출될 수 있다.
+
+## API parameter
+    ResponseBody에 Map<String,Object> 보다 Entity를 받는 것이 유지 보수에 좋음
+## JPA에서의 수정
+### 준영속 Entity
+    JPA 영속성 컨텍스트가 더이상 관리하지 않는 Entity
+    Entity가 지금 생성되었지만, 이에 set되는 값이 JPA가 가져온 것인 경우
+    즉, 임의로 만들어 냈어도 기존의 식별자를 가지고 있는 Entity
+    ***** 이는 JPA가 관리하지 않음 *****
+    -> 변경감지 또는 병합으로 해결
+### 변경 감지 (= Ditry Checking)
+    Transaction 중에 가져온 Entity 내 값이 변경되면 JPA가 알아서 Persist
+    Modify시 Id값과 Entity를 인자로 받아와서 Id로 persistent entity를 검색 후, 변경 값을 대입하면 save가 없어도 변경됨
+    
+### 병합
+    EntityManager의 Merge.
+    변경 감지에서 필요한 로직을 알아서 해결해줌(실무에선 사용 X)
+    ? 병합 시 값이 없으면 NULL로 교체해 버리기 때문!!!
+    JpaRepository의 save
+    
+## Dynamic Query in JPA
+### JPA Criteria
+    JPA Standard But, 유지보수성이 매우 낮아, 실무에서 사용하지 않음
+    무슨 Query인지 코드를 보고 떠올리기 힘듬 
+    --> Query DSL
+
+### *** Query DSL ***
+    Compile 시점에 오타 파악 가능
+    직관적인 Method로 Query 파악 가능
+    복잡한 Query / Dynamic Query 이해 쉬움
+    실무에서 유용하게 많이 사용
+
 </details>
 
-
+ 
 # Error & Warn
 
 </details>
