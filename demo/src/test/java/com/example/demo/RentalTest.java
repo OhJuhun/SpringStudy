@@ -19,12 +19,12 @@ public class RentalTest {
     @Test
     void insertTest(){
 
-        Rental rental = new Rental();
-        rental.setId(1L);
-        rental.setBookId(1L);
-        rental.setUserId(1L);
-        rental.setRentDate(LocalDate.now());
-        rentalService.insertRental(rental);
+//        Rental rental = Rental.createRental
+//        rental.setId(1L);
+//        rental.setBookId(1L);
+//        rental.setUserId(1L);
+//        rental.setRentDate(LocalDate.now());
+//        rentalService.insertRental(rental);
 
     }
 }

@@ -1,13 +1,12 @@
 package com.example.demo;
 
-import com.example.demo.controller.UserController;
+import com.example.demo.controller.RestUserController;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.springframework.http.MediaType;
@@ -19,11 +18,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserTest extends AbstractControllerTest {
     static final String base = "/user";
     @Autowired
-    UserController userController;
+    RestUserController restUserController;
 
     @Override
     protected Object controller(){
-        return userController;
+        return restUserController;
     }
 
     @Test

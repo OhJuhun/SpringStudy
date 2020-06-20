@@ -1,0 +1,32 @@
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"> <!-- using namespace -->
+<head th:replace="fragments/header :: header"> <!-- fragments/header와 연결 -->
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" /> <!-- fragments/bodyHeader와 연결  include layout 방식 계속 해줘야해서 안좋음 -->
+    <div class="jumbotron">
+        <h1>HELLO LIBRARY</h1>             <!-- hierarchical Layout 방식을 사용하자 -->
+        <p class="lead">회원 기능</p> <p>
+            <a class="btn btn-lg btn-secondary" href="/users/new">회원 가입</a>
+            <a class="btn btn-lg btn-secondary" href="/users">회원 목록</a>
+        </p>
+        <p class="lead">상품 기능</p>
+        <p>
+            <a class="btn btn-lg btn-dark" href="/books/new">상품 등록</a>
+            <a class="btn btn-lg btn-dark" href="/books">상품 목록</a>
+        </p>
+        <p class="lead">주문 기능</p>
+        <p>
+            <a class="btn btn-lg btn-info" href="/rentals">상품 주문</a>
+            <a class="btn btn-lg btn-info" href="/rentalsall">주문 내역</a>
+        </p>
+    </div>
+    <div th:replace="fragments/footer :: footer" /> <!-- fragments/footer와 연결 -->
+</div> <!-- /container -->
+</body>
+</html>

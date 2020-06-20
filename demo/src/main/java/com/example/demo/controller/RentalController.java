@@ -23,7 +23,7 @@ public class RentalController {
     }
 
     @PostMapping
-    private ResponseEntity<Rental> retnBook(@RequestBody Map<String, Object> body){ //그냥 Json으로 묶어서 보내는거보다 낫나
+    private ResponseEntity<Rental> rentBook(@RequestBody Map<String, Object> body){ //그냥 Json으로 묶어서 보내는거보다 낫나
         ResponseEntity<Rental> responseEntity = new ResponseEntity<Rental>(HttpStatus.OK);
         try {
             rentalService.insertRental(body);

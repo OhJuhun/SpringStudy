@@ -43,8 +43,6 @@ public class RentalService {
         Long bookId = bid.longValue();
         Optional<User> user = userRepository.findById(userId);
         Optional<Book> book = bookRepository.findById(bookId);
-        System.out.println(user.get().getId());
-        System.out.println(book.get().getId());
         Rental rental = Rental.createRental(user.get(),book.get());
         rentalRepository.save(rental);
     }
