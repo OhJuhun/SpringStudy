@@ -3,7 +3,7 @@ package com.example.demo.controller;
 
 public class BookForm {
 
-    private Long Id; //수정이 있으므로
+    private Long id; //수정이 있으므로
 
     private String name;
 
@@ -11,12 +11,21 @@ public class BookForm {
 
     private Long quantity;
 
+    public BookForm(){}
+
+
+    public BookForm(Long id,String name, String isbn, Long quantity){
+        this.id=id;
+        this.name=name;
+        this.isbn = isbn;
+        this.quantity = quantity;
+    }
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        id = id;
     }
 
     public String getName() {

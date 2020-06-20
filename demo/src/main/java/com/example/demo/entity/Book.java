@@ -71,4 +71,15 @@ public class Book {
     public void rentBook(Long quantity){
         this.removeQuantity(quantity);
     }
+
+
+    //create Book
+    public static Book createBook(Long id,String name, String isbn, Long quantity){
+        Book book= new Book();
+        book.setId(id);
+        book.setName(name);
+        book.setIsbn(isbn);
+        book.setQuantity(quantity);
+        return book;
+    }
 }

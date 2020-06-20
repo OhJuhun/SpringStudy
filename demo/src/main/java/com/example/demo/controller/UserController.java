@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequestMapping("users")
@@ -38,7 +39,7 @@ public class UserController {
         user.setNickname(userForm.getNickname());
         user.setPassword(userForm.getPassword());
         user.setEmail(userForm.getEmail());
-
+        //등록 폼은 Entity
         userService.insertUser(user);
         return "redirect:/";
     }
@@ -46,7 +47,13 @@ public class UserController {
     @GetMapping
     public String list(Model model){
         List<User> users = userService.getUsers();
-        model.addAttribute("users",users);
+        List<UserForm> userForms = new ArrayList<>();
+        for(User user :users){
+            UserForm userForm = new UserForm(user.getName(),user.getEmail(),user.getNickname(),user.getPassword());
+            //생성자를 없앨까? 아니면 그냥 쓸까?
+            userForms.add(userForm);
+        }
+        model.addAttribute("users",userForms);
 
         return "/users/userList";
     }

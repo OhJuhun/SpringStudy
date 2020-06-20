@@ -59,7 +59,7 @@ public class RestBookController {
                 throw new Exception("Book Not Found");
             }
             book.setName(newName);
-            responseEntity = responseEntity.ok(bookService.modifyBook(book));
+            responseEntity = responseEntity.ok(bookService.modifyBook(book.getId(),book)); //이럴 필요가 있나
         } catch(Exception e){
             responseEntity = new ResponseEntity<Book>(HttpStatus.NOT_ACCEPTABLE);
         }

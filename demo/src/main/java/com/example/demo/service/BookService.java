@@ -42,8 +42,14 @@ public class BookService {
     }
 
     @Transactional
-    public Book modifyBook(Book book){
-        return bookRepository.save(book);
+    public Book modifyBook(Long id,Book book){
+        //Id값과 book을 받아와서 Id로 persistent entity를 검색 후, 변경 값을 대입하면 save안해도 알아서 변경 (변경감지)
+        Book b = bookRepository.getOne(id);
+        if(book.getName()!=null) b.setName(book.getName());
+        if(book.getIsbn()!=null)b.setIsbn(book.getIsbn());
+        if(book.getQuantity()!=null) b.setQuantity(book.getQuantity());
+        return bookRepository.save(b);
     }
 
+    public Optional<Book> findOne(Long id){ return bookRepository.findById(id);}
 }

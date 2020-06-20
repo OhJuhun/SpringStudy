@@ -6,12 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RequestMapping("books")
 @Controller
@@ -48,15 +47,28 @@ public class BookController {
         List<Book> books = bookService.getBooks();
         List<BookForm> bookForms = new ArrayList<>();
         for(Book book : books){
-            BookForm bookForm = new BookForm();
-            bookForm.setId(book.getId());
-            bookForm.setIsbn(book.getIsbn());
-            bookForm.setName(book.getName());
-            bookForm.setQuantity(book.getQuantity());
-            bookForms.add(bookForm);
-            System.out.println(book.getName());
+            bookForms.add(new BookForm(book.getId(),book.getName(),book.getIsbn(),book.getQuantity()));
         }
         model.addAttribute("bookForm",bookForms);
         return "books/bookList";
+    }
+
+    @GetMapping("/{bookId}/edit")
+    public String updateBookForm(@PathVariable("bookId") Long bookId,
+                                 Model model){
+
+        Optional<Book> one = bookService.findOne(bookId);
+        BookForm bookform = new BookForm(one.get().getId(),one.get().getName(),one.get().getIsbn(),one.get().getQuantity());
+        model.addAttribute("bookForm",bookform);
+
+        return "books/updateBookForm";
+    }
+
+    @PostMapping("/{bookId}/edit")
+    public String updateBook(@PathVariable("bookId") Long bookId,@ModelAttribute("bookForm") BookForm bookForm ){
+        Book book =new Book();
+        bookService.modifyBook(bookId,book);
+        //값을 변경할 method를 하나 구현해 두는 것이 좋다
+        return "redirect:/books";
     }
 }
