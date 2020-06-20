@@ -1,6 +1,6 @@
 package com.example.demo;
 
-import com.example.demo.controller.BookController;
+import com.example.demo.controller.RestBookController;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +19,10 @@ public class BookTest extends AbstractControllerTest{
 
     static final String base = "/book";
     @Autowired
-    BookController bookController;
+    RestBookController restBookController;
 
     @Override
-    protected Object controller() {return bookController;}
+    protected Object controller() {return restBookController;}
 
 
     @Test

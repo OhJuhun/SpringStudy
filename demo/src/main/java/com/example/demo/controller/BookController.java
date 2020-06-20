@@ -1,117 +1,62 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.Book;
-import com.example.demo.exception.NotFoundException;
 import com.example.demo.service.BookService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-@RestController
-@RequestMapping("/book")
+@RequestMapping("books")
+@Controller
 public class BookController {
-    @Autowired
-    BookService bookService;
 
+    private final BookService bookService;
+
+    public BookController(BookService bookService){
+        this.bookService=bookService;
+    }
+
+    @GetMapping("/new")
+    public String createForm(Model model){
+        model.addAttribute("bookForm",new BookForm());
+        return "books/createBookForm";
+    }
+
+    @PostMapping("/new")
+    public String create(@Validated BookForm bookForm, BindingResult result){
+        if(result.hasErrors()){ //Valid 동작 안한다 ->스프링으로 바꾸자
+            return "books/createBookForm";
+        }
+        Book book = new Book();
+        book.setQuantity(bookForm.getQuantity());
+        book.setIsbn(bookForm.getIsbn());
+        book.setName(bookForm.getName());
+        //setter없이 createBook Method 생성하는것이 더 좋은 설계
+        bookService.insertBook(book);
+
+        return "redirect:/books";
+    }
     @GetMapping
-    private ResponseEntity<List<Book>> getBooks(){
-        return ResponseEntity.ok(bookService.getBooks());
-    }
-
-    @GetMapping("/getByIsbn")
-    private ResponseEntity<Book> getByIsbn(@RequestParam String isbn){ //무조건 하나만 return
-        return ResponseEntity.ok(bookService.getByIsbn(isbn));
-    }
-
-    @GetMapping("/getByName")
-    private ResponseEntity<Book> getByName(@RequestParam String name){
-        return ResponseEntity.ok(bookService.getByName(name));
-    }
-    @PostMapping
-    private ResponseEntity<Book> insertBook(@RequestBody Book book){
-        //uses unchecked or unsafe operations 경고 제거를 위해 raw -> String Type 지정
-        ResponseEntity<Book> responseEntity = new ResponseEntity<Book>(HttpStatus.OK);
-
-        try {
-            responseEntity = responseEntity.ok(bookService.insertBook(book));
-        }catch (DataIntegrityViolationException e){ //데이터 통합 오류?
-            responseEntity = new ResponseEntity<Book>(HttpStatus.METHOD_NOT_ALLOWED);
+    public String list(Model model){
+        List<Book> books = bookService.getBooks();
+        List<BookForm> bookForms = new ArrayList<>();
+        for(Book book : books){
+            BookForm bookForm = new BookForm();
+            bookForm.setId(book.getId());
+            bookForm.setIsbn(book.getIsbn());
+            bookForm.setName(book.getName());
+            bookForm.setQuantity(book.getQuantity());
+            bookForms.add(bookForm);
+            System.out.println(book.getName());
         }
-        catch (Exception e){ //insert시 unique여야 하는 값이 중복될 수 있는  경우 Exception
-            responseEntity = new ResponseEntity<Book>(HttpStatus.METHOD_NOT_ALLOWED);
-        }
-        return responseEntity;
-    }
-
-    @PatchMapping("/modifyName")
-    private ResponseEntity<Book> modifyBookName(@RequestParam String isbn,
-                                                @RequestParam String newName){
-        ResponseEntity<Book> responseEntity = new ResponseEntity<Book>(HttpStatus.OK);
-        try {
-            Book book = bookService.getByIsbn(isbn);
-            if(book==null){
-                throw new Exception("Book Not Found");
-            }
-            book.setName(newName);
-            responseEntity = responseEntity.ok(bookService.modifyBook(book));
-        } catch(Exception e){
-            responseEntity = new ResponseEntity<Book>(HttpStatus.NOT_ACCEPTABLE);
-        }
-        return responseEntity;
-    }
-
-    @PatchMapping("/modifyIsbn")
-    private ResponseEntity<Book> modifyBookIsbn(@RequestParam String isbn,
-                                                @RequestParam String newIsbn){
-        ResponseEntity<Book> responseEntity = new ResponseEntity<Book>(HttpStatus.OK);
-        try{
-            Book book = bookService.getByIsbn(isbn);
-            if(book==null){
-                throw new NotFoundException("Book Not Found");
-            }
-            book.setIsbn(newIsbn);
-            responseEntity = responseEntity.ok(bookService.modifyBook(book));
-        } catch(Exception e){
-            responseEntity = new ResponseEntity<Book>(HttpStatus.NOT_ACCEPTABLE);
-        }
-        return responseEntity;
-    }
-
-    @PatchMapping("/modifyQuantity")
-    private ResponseEntity<Book> modifyBookQuantity(@RequestParam String isbn,
-                                                    @RequestParam Long newQuantity){
-        ResponseEntity<Book> responseEntity = new ResponseEntity<Book>(HttpStatus.OK);
-        try{
-            Book book = bookService.getByIsbn(isbn);
-            if(book==null){
-                throw new NotFoundException("Book Not Found");
-            }
-            book.setQuantity(newQuantity);
-            responseEntity = responseEntity.ok(bookService.modifyBook(book));
-        } catch(Exception e){
-            responseEntity = new ResponseEntity<Book>(HttpStatus.NOT_ACCEPTABLE);
-        }
-        return responseEntity;
-    }
-
-    @DeleteMapping
-    private ResponseEntity<Book> deleteBook(@RequestParam(name="isbn") String isbn){
-        ResponseEntity<Book> responseEntity = new ResponseEntity<Book>(HttpStatus.OK);
-        try{
-            Book book = bookService.getByIsbn(isbn);
-            if(book == null){
-                throw new NotFoundException("Book Not Found");
-            }
-            bookService.deleteBook(book.getId());
-        } catch(Exception e){
-            responseEntity = new ResponseEntity<Book>(HttpStatus.NOT_ACCEPTABLE);
-        }
-        return responseEntity;
+        model.addAttribute("bookForm",bookForms);
+        return "books/bookList";
     }
 }

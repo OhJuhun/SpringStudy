@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.validation.Valid;
+import java.util.List;
 
 @RequestMapping("users")
 @Controller
@@ -27,7 +27,7 @@ public class UserController {
     }
 
     @PostMapping("/new")
-    public String create(@Valid UserForm userForm, BindingResult result){
+    public String create( UserForm userForm, BindingResult result){
         //valid 이후 BindResult가 있으 오류가 담겨서 실행됨
         if(result.hasErrors()){
             return "users/createUserForm";
@@ -43,4 +43,11 @@ public class UserController {
         return "redirect:/";
     }
 
+    @GetMapping
+    public String list(Model model){
+        List<User> users = userService.getUsers();
+        model.addAttribute("users",users);
+
+        return "/users/userList";
+    }
 }

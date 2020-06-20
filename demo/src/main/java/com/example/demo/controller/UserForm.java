@@ -1,15 +1,14 @@
 package com.example.demo.controller;
 
-import javax.validation.constraints.NotEmpty;
 
 public class UserForm {
 
-    @NotEmpty(message="이름은 필수입니다.")
     private String name;
 
     private String email;
     private String nickname;
     private String password;
+
     public UserForm(){
 
     }

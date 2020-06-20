@@ -19,9 +19,10 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.srpingframework.boot:spring-boot-starter-validation'
 	//implementation 'org.srpingframework.boot:spring-boot-devtools' devtools가 안됨 ㅠ
 	implementation 'mysql:mysql-connector-java'
-	implementation files('./build/libs/validation-api-2.0.1.Final.jar')
+	//implementation files('./build/libs/validation-api-2.0.1.Final.jar') file을 implementation
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.6' // query log 값 보기
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
