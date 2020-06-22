@@ -36,9 +36,11 @@ public class RentalController {
         return "rentals/createRentalForm";
     }
     @GetMapping //LIST ALL
-    public String list(Model model){
-        List<Rental> rentals = rentalService.getRentals();
-
+    public String list(Model model,RentalSearch rentalSearch){
+        List<Rental> rentals = rentalService.findMyRentals(rentalSearch);
+        for(Rental rental : rentals){
+            System.out.println(rental.getUserId());
+        }
         return "rentals/rentalList";
     }
 //

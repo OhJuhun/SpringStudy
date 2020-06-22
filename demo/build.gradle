@@ -73,3 +73,11 @@ tasks.withType(JavaCompile) {
 clean.doLast {
 	file(generated).deleteDir()
 }
+ //추가 설정
+////implementationQuerydsl{
+////	options.annotationProcessorPath = configurations.querydsl
+//}
+
+configurations {
+	querydsl.extendsFrom compileClasspath
+}

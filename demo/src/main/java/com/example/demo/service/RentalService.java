@@ -3,9 +3,11 @@ package com.example.demo.service;
 
 import com.example.demo.entity.Book;
 import com.example.demo.entity.Rental;
+import com.example.demo.entity.RentalSearch;
 import com.example.demo.entity.User;
 import com.example.demo.repository.BookRepository;
 import com.example.demo.repository.RentalRepository;
+import com.example.demo.repository.RentalSupportRepository;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,12 +24,18 @@ public class RentalService {
     private final RentalRepository rentalRepository;
     private final BookRepository bookRepository;
     private final UserRepository userRepository;
+    @Autowired
+    private final RentalSupportRepository rentalSupportRepository;
 
     @Autowired
-    public RentalService(RentalRepository rentalRepository, UserRepository userRepository, BookRepository bookRepository){
+    public RentalService(RentalRepository rentalRepository,
+                         UserRepository userRepository,
+                         BookRepository bookRepository,
+                         RentalSupportRepository rentalSupportRepository){
         this.rentalRepository = rentalRepository;
         this.bookRepository = bookRepository;
         this.userRepository = userRepository;
+        this.rentalSupportRepository = rentalSupportRepository;
     }
 
     public List<Rental> getRentals(){
@@ -65,6 +73,10 @@ public class RentalService {
         Long bookId = bid.longValue();
         //이 둘을 기반으로 Query를 하려면 query dsl이 필요
         //userId = user_id and bookId = book_id and return_date = null
+    }
 
+
+    public List<Rental> findMyRentals(RentalSearch rentalSearch){
+        return rentalSupportRepository.findByRental_rentalSearch(rentalSearch);
     }
 }
