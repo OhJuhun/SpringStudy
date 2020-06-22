@@ -44,15 +44,14 @@ public class RentalService {
 
     @Transactional
     public void insertRental(Map<String, Object> body){
-        Integer uid = (Integer)body.get("user_id");
-        Integer bid = (Integer)body.get("book_id");
+        Long uid = (Long)body.get("user_id");
+        Long bid = (Long)body.get("book_id");
 
-        Long userId = uid.longValue();
-        Long bookId = bid.longValue();
-        Optional<User> user = userRepository.findById(userId);
-        Optional<Book> book = bookRepository.findById(bookId);
+        Optional<User> user = userRepository.findById(uid);
+        Optional<Book> book = bookRepository.findById(bid);
         Rental rental = Rental.createRental(user.get(),book.get());
         rentalRepository.save(rental);
+        //성공이지만 이렇게 하면 안됨!!
     }
 
     @Transactional

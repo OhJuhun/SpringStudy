@@ -5,16 +5,16 @@
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
     <form role="form" action="/rentals" method="post">
         <div class="form-group">
-        <label for="user">회원</label>
-        <select name="userId" id="user" class="form-control">
+        <label for="users">회원</label>
+        <select name="userId" id="users" class="form-control">
             <option value="">회원선택</option>
             <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name}" />
         </select>
     </div>
         <div class="form-group">
-            <label for="book">도서 명</label>
-            <select name="bookId" id="book" class="form-control">
-                <option value="">상품선택</option>
+            <label for="books">도서 명</label>
+            <select name="bookId" id="books" class="form-control">
+                <option value="">도서선택</option>
                 <option th:each="book : ${books}" th:value="${book.id}" th:text="${book.name}" />
             </select>
         </div>

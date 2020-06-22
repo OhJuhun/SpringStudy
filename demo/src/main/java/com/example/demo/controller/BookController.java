@@ -39,6 +39,7 @@ public class BookController {
         book.setIsbn(bookForm.getIsbn());
         book.setName(bookForm.getName());
         //setter없이 createBook Method 생성하는것이 더 좋은 설계
+
         bookService.insertBook(book);
 
         return "redirect:/books";
