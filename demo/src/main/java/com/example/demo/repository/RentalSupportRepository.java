@@ -25,11 +25,11 @@ public class RentalSupportRepository extends QuerydslRepositorySupport {
     }
 
     public List<Rental> findByRental_rentalSearch(RentalSearch rentalSearch){ //_가 예약어 이므로 사용해야함
-        System.out.println("USERNAME: "+rentalSearch.getUserName());
         return jpaQueryFactory
                 .select(rental)
                 .from(rental)
-                .where(RentalPredicate.findByRentalSearch(rentalSearch))
+                .where(RentalPredicate.eqName(rentalSearch.getUserName()),
+                        RentalPredicate.eqStatus(rentalSearch.getRentalStatus()))
                 .fetch();
     }
 }

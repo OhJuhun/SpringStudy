@@ -4,6 +4,7 @@ package com.example.demo.service;
 import com.example.demo.AbstractControllerTest;
 import com.example.demo.entity.Rental;
 import com.example.demo.entity.RentalSearch;
+import com.example.demo.entity.RentalStatus;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

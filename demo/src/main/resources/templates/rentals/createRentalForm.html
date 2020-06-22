@@ -8,7 +8,7 @@
         <label for="user">회원</label>
         <select name="userId" id="user" class="form-control">
             <option value="">회원선택</option>
-            <option th:each="user : ${users}" th:value="${user.id}" th:text="${member.name}" />
+            <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name}" />
         </select>
     </div>
         <div class="form-group">

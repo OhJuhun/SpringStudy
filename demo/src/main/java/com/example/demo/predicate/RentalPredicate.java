@@ -1,16 +1,28 @@
 package com.example.demo.predicate;
 
 import com.example.demo.entity.RentalSearch;
+import com.example.demo.entity.RentalStatus;
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Visitor;
+import com.querydsl.core.types.dsl.BooleanExpression;
 
+
+import javax.annotation.Nullable;
 
 import static com.example.demo.entity.QRental.rental;
 
-public class RentalPredicate {
-    public static BooleanBuilder findByRentalSearch(RentalSearch rentalSearch){
-        BooleanBuilder booleanBuilder = new BooleanBuilder();
-        if(rentalSearch.getUserName()!=null) booleanBuilder.and(rental.user.name.eq(rentalSearch.getUserName()));
 
-        return booleanBuilder;
+//Null처리, 가독성을 위해 모듈화
+public class RentalPredicate {
+
+    public static BooleanExpression eqName(String name){
+        if(name==null) return null;
+        return rental.user.name.eq(name);
+    }
+
+    public static BooleanExpression eqStatus(RentalStatus status){
+        if(status == null) return null;
+        if(status.equals(RentalStatus.RENT)) return rental.returnDate.isNull();
+        else return rental.returnDate.isNotNull();
     }
 }
