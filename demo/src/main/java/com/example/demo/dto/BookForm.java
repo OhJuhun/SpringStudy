@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.dto;
 
 
 public class BookForm {
@@ -12,7 +12,6 @@ public class BookForm {
     private Long quantity;
 
     public BookForm(){}
-
 
     public BookForm(Long id,String name, String isbn, Long quantity){
         this.id=id;

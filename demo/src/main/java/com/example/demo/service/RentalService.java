@@ -66,6 +66,5 @@ public class RentalService {
         //이 둘을 기반으로 Query를 하려면 query dsl이 필요
         //userId = user_id and bookId = book_id and return_date = null
 
-
     }
 }

@@ -8,6 +8,8 @@ plugins {
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
+def queryDSLVersion = '4.2.2' //version
+def generated = "src/main/generated"// QueryDSL PATH
 
 repositories {
 	mavenCentral()
@@ -19,8 +21,16 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-//	implementation 'org.srpingframework.boot:spring-boot-starter-validation'  얘도 안됨.. 머지
-	//implementation 'org.srpingframework.boot:spring-boot-devtools' devtools가 안됨 ㅠ
+	//Query DSL
+	compile("com.querydsl:querydsl-core:${queryDSLVersion}")
+	compile("com.querydsl:querydsl-jpa:${queryDSLVersion}")
+	compile("com.querydsl:querydsl-apt:${queryDSLVersion}")
+	annotationProcessor(
+			"com.querydsl:querydsl-apt:${queryDSLVersion}:jpa",
+			"org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.2.Final",
+			"javax.annotation:javax.annotation-api"
+	)
+
 	implementation 'mysql:mysql-connector-java'
 	//implementation files('./build/libs/validation-api-2.0.1.Final.jar') file을 implementation
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.6' // query log 값 보기
@@ -50,4 +60,16 @@ bootJar { //gradlew build
 	manifest {
 		attributes 'Start-Class': 'com.example.demo.DemoApplication'
 	}
+}
+ //??
+sourceSets {
+	main.java.srcDirs += [ generated ]
+}
+
+tasks.withType(JavaCompile) {
+	options.annotationProcessorGeneratedSourcesDirectory = file(generated)
+}
+
+clean.doLast {
+	file(generated).deleteDir()
 }

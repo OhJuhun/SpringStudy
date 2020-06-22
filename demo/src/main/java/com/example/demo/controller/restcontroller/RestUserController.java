@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.controller.restcontroller;
 
 
 import com.example.demo.entity.User;

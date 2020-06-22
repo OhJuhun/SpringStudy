@@ -1,10 +1,9 @@
-package com.example.demo.controller;
+package com.example.demo.dto;
 
 
 public class UserForm {
 
     private String name;
-
     private String email;
     private String nickname;
     private String password;

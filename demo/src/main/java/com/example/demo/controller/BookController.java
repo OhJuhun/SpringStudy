@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.BookForm;
 import com.example.demo.entity.Book;
 import com.example.demo.service.BookService;
 import org.springframework.stereotype.Controller;
@@ -12,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@RequestMapping("books")
 @Controller
+@RequestMapping("books")
 public class BookController {
 
     private final BookService bookService;
@@ -67,6 +68,7 @@ public class BookController {
     @PostMapping("/{bookId}/edit")
     public String updateBook(@PathVariable("bookId") Long bookId,@ModelAttribute("bookForm") BookForm bookForm ){
         Book book =new Book();
+        book.setQuantity(bookForm.getQuantity());
         bookService.modifyBook(bookId,book);
         //값을 변경할 method를 하나 구현해 두는 것이 좋다
         return "redirect:/books";

@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.UserForm;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -12,36 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.ArrayList;
 import java.util.List;
 
-@RequestMapping("users")
 @Controller
+@RequestMapping("users")
 public class UserController {
     private final UserService userService;
 
     public UserController(UserService userService){
         this.userService = userService;
-    }
-
-    @GetMapping("/new")
-    public String createForm(Model model){
-        model.addAttribute("userForm",new UserForm());
-        return "users/createUserForm";
-    }
-
-    @PostMapping("/new")
-    public String create( UserForm userForm, BindingResult result){
-        //valid 이후 BindResult가 있으 오류가 담겨서 실행됨
-        if(result.hasErrors()){
-            return "users/createUserForm";
-        }
-
-        User user = new User();
-        user.setName(userForm.getName());
-        user.setNickname(userForm.getNickname());
-        user.setPassword(userForm.getPassword());
-        user.setEmail(userForm.getEmail());
-        //등록 폼은 Entity
-        userService.insertUser(user);
-        return "redirect:/";
     }
 
     @GetMapping
@@ -57,4 +35,28 @@ public class UserController {
 
         return "/users/userList";
     }
+
+    @GetMapping("/new")
+    public String createForm(Model model){
+        model.addAttribute("userForm",new UserForm());
+        return "users/createUserForm";
+    }
+
+    @PostMapping("/new")
+    public String create(UserForm userForm, BindingResult result){
+        //valid 이후 BindResult가 있으 오류가 담겨서 실행됨
+        if(result.hasErrors()){
+            return "users/createUserForm";
+        }
+
+        User user = new User();
+        user.setName(userForm.getName());
+        user.setNickname(userForm.getNickname());
+        user.setPassword(userForm.getPassword());
+        user.setEmail(userForm.getEmail());
+        //등록 폼은 Entity
+        userService.insertUser(user);
+        return "redirect:/";
+    }
+
 }

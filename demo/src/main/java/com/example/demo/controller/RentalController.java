@@ -1,52 +1,49 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.RentalForm;
 import com.example.demo.entity.Rental;
+import com.example.demo.entity.RentalSearch;
+import com.example.demo.service.BookService;
 import com.example.demo.service.RentalService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import com.example.demo.service.UserService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
-import java.util.Map;
 
-@RestController
-@RequestMapping("/rental")
+
+@Controller
+@RequestMapping("rentals")
 public class RentalController {
-    @Autowired
-    RentalService rentalService;
+    private final RentalService rentalService;
+    private final BookService bookService;
+    private final UserService userService;
 
-    @GetMapping
-    private ResponseEntity<List<Rental>> getAll(){
-        return ResponseEntity.ok(rentalService.getRentals());
+    public RentalController(RentalService rentalService, BookService bookService, UserService userService){
+        this.rentalService = rentalService;
+        this.bookService = bookService;
+        this.userService = userService;
     }
 
-    @PostMapping
-    private ResponseEntity<Rental> rentBook(@RequestBody Map<String, Object> body){ //그냥 Json으로 묶어서 보내는거보다 낫나
-        ResponseEntity<Rental> responseEntity = new ResponseEntity<Rental>(HttpStatus.OK);
-        try {
-            rentalService.insertRental(body);
-        } catch(Exception e){
-            responseEntity = new ResponseEntity(e.toString(),HttpStatus.NOT_ACCEPTABLE);
-        }
-        return responseEntity;
+    @GetMapping("/new")
+    public String createForm(Model model){
+        model.addAttribute("rentalForm",new RentalForm());
+        return "rentals/createRentalForm";
     }
+    @GetMapping //LIST ALL
+    public String list(Model model){
+        List<Rental> rentals = rentalService.getRentals();
 
-    @PutMapping
-    private ResponseEntity<Rental> returnBook(@RequestBody Map<String,Object> body){
-        ResponseEntity<Rental> responseEntity= new ResponseEntity<Rental>(HttpStatus.OK);
-        try{
-            rentalService.returnBook(body);
-        }catch(Exception e){
-
-        }
-        return responseEntity;
+        return "rentals/rentalList";
     }
-
-    @DeleteMapping //지울 일은 없음
-    private ResponseEntity<Rental> delete(@RequestParam Long id){
-        ResponseEntity<Rental> responseEntity = new ResponseEntity<Rental>(HttpStatus.OK);
-        return responseEntity;
-    }
+//
+//    @PostMapping("/new")
+//    public String insert(@Validated RentalForm rentalForm, BindingResult result){
+//        return "redirect:rentals";
+//    }
 }

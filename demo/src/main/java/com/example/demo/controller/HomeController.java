@@ -7,11 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class HomeController {
-    Logger log = LoggerFactory.getLogger(HomeController.class);
-
     @RequestMapping("/")
     public String home(){
-        log.info("Home Controller Called");
         return "home";
     }
 }

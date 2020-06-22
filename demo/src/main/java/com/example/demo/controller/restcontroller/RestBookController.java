@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.controller.restcontroller;
 
 import com.example.demo.entity.Book;
 import com.example.demo.exception.NotFoundException;
@@ -24,7 +24,7 @@ public class RestBookController {
         return ResponseEntity.ok(bookService.getBooks());
     }
 
-    @GetMapping("/getByIsbn")
+    @GetMapping("/getByIsbn") //이렇게 쓰지 말래 ㅠ
     private ResponseEntity<Book> getByIsbn(@RequestParam String isbn){ //무조건 하나만 return
         return ResponseEntity.ok(bookService.getByIsbn(isbn));
     }
@@ -76,7 +76,7 @@ public class RestBookController {
                 throw new NotFoundException("Book Not Found");
             }
             book.setIsbn(newIsbn);
-            responseEntity = responseEntity.ok(bookService.modifyBook(book));
+            responseEntity = responseEntity.ok(bookService.modifyBook(book.getId(),book));
         } catch(Exception e){
             responseEntity = new ResponseEntity<Book>(HttpStatus.NOT_ACCEPTABLE);
         }
@@ -93,7 +93,7 @@ public class RestBookController {
                 throw new NotFoundException("Book Not Found");
             }
             book.setQuantity(newQuantity);
-            responseEntity = responseEntity.ok(bookService.modifyBook(book));
+            responseEntity = responseEntity.ok(bookService.modifyBook(book.getId(),book));
         } catch(Exception e){
             responseEntity = new ResponseEntity<Book>(HttpStatus.NOT_ACCEPTABLE);
         }

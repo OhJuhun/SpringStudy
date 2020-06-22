@@ -1,6 +1,6 @@
 package com.example.demo;
 
-import com.example.demo.controller.RestUserController;
+import com.example.demo.controller.restcontroller.RestUserController;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
