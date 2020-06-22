@@ -32,7 +32,13 @@
 ## spring-boot-data-source-decorator
     query Log (?,?) - > (a,b)
     이러한 라이브러리 등은 배포시 성능 관련하여 고민을 해보아야 함.
+
+</details>
 # Keywords
+
+<details markdown="1">
+<summary>접기/펼치기</summary>
+
 ## Optional
     값을 발견하지 못한 경우 null return
     미사용시 [], '' return
@@ -81,6 +87,7 @@
 
 ## API parameter
     ResponseBody에 Map<String,Object> 보다 Entity를 받는 것이 유지 보수에 좋음
+    
 ## JPA에서의 수정
 ### 준영속 Entity
     JPA 영속성 컨텍스트가 더이상 관리하지 않는 Entity
