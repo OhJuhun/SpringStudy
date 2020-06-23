@@ -1,10 +1,13 @@
 package com.example.demo.dto;
 
 
+import javax.validation.constraints.NotEmpty;
+
 public class BookForm {
 
     private Long id; //수정이 있으므로
 
+    @NotEmpty(message="we need name")
     private String name;
 
     private String isbn;

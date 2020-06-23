@@ -6,9 +6,9 @@ import com.example.demo.service.BookService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -30,10 +30,11 @@ public class BookController {
     }
 
     @PostMapping("/new")
-    public String create(@Validated BookForm bookForm, BindingResult result){
-        if(result.hasErrors()){ //TODO : VALIDATED TO WORK
+    public String create(@Valid BookForm bookForm, BindingResult result){
+        if(result.hasErrors()){
             return "books/createBookForm";
         }
+        System.out.println(bookForm.getName()+ " This is Book Form");
         Book book = Book.createBook(bookForm.getName(),bookForm.getIsbn(),bookForm.getQuantity());
         //setter없이 createBook Method 생성하는것이 더 좋은 설계
 
