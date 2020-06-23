@@ -110,13 +110,26 @@
 ### JPA Criteria
     JPA Standard But, 유지보수성이 매우 낮아, 실무에서 사용하지 않음
     무슨 Query인지 코드를 보고 떠올리기 힘듬 
-    --> Query DSL
+    --> QueryDSL
 
-### *** Query DSL ***
+### *** QueryDSL ***
     Compile 시점에 오타 파악 가능
     직관적인 Method로 Query 파악 가능
     복잡한 Query / Dynamic Query 이해 쉬움
     실무에서 유용하게 많이 사용
+
+### JpaSpecificationExecutor
+    findAll(Specification<T> spec) 등으로 사용하여 where절 대체
+
+### QueryDslPredicateExecutor
+    Spring Data JPA 제공 페이징, 정렬 기능도 함께 사용 가능
+
+### QueryDslRepositorySupport
+    QueryDSL의 모든 기능을 사용하기 위해 JPAQuery 객체를 직접 생성하여 사용
+
+### Custom Repository
+    -interface ARepositoryCustom
+    -interface ARepositoryImpl extends JpaRepository<A,Long>, ARepositoryCustom
 
 </details>
 
@@ -154,6 +167,7 @@
     주로 modify, delete 등의 Query에 사용
     Entity Manager에 의한 데이터 변경은 항상 Transaction 안에서 이루어 져야 함
     같은 영속성 Container에서 같은 Entity를 참조하면 같은 값
+    readOnly로 성능 최적화 가능
 ## @RunWith(class)
     Spring Boot Test라는 것을 알림  
 ## @Embedded, @Embeddable
@@ -166,6 +180,12 @@
     OneToMany 관계에서 필수적으로 설정되어야 함
 
 ### insertable, updatable
+
+## Qualifier
+    Paging시 사용해야 할 정보가 둘 이상일 경우 접두사를 붙여 정의
+
+## PageableDefault
+    Pageable 기본값(page=0,size=20)을 변경하고 싶을 경우 사용
 
 ## Reltation
 ### ***** 모든 연관관계는 fetch = FetchType.LAZY *****
