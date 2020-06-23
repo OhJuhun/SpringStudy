@@ -49,11 +49,7 @@ public class UserController {
             return "users/createUserForm";
         }
 
-        User user = new User();
-        user.setName(userForm.getName());
-        user.setNickname(userForm.getNickname());
-        user.setPassword(userForm.getPassword());
-        user.setEmail(userForm.getEmail());
+        User user = User.createUser(userForm.getName(),userForm.getNickname(),userForm.getEmail(),userForm.getPassword());
         //등록 폼은 Entity
         userService.insertUser(user);
         return "redirect:/";

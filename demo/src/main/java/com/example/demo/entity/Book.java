@@ -8,6 +8,11 @@ import javax.persistence.*;
 @Entity
 @Table(name="book")
 public class Book {
+
+
+    protected Book(){
+        
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="book_id", nullable=false)
@@ -74,9 +79,8 @@ public class Book {
 
 
     //create Book
-    public static Book createBook(Long id,String name, String isbn, Long quantity){
+    public static Book createBook(String name, String isbn, Long quantity){
         Book book= new Book();
-        book.setId(id);
         book.setName(name);
         book.setIsbn(isbn);
         book.setQuantity(quantity);

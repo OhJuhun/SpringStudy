@@ -26,7 +26,8 @@ public class RentalSupportRepository extends QuerydslRepositorySupport {
         return jpaQueryFactory
                 .select(rental)
                 .from(rental)
-                .where(RentalPredicate.eqName(rentalSearch.getUserName()),
+                .where(
+                        RentalPredicate.eqName(rentalSearch.getUserName()),
                         RentalPredicate.eqStatus(rentalSearch.getRentalStatus()))
                 .fetch();
     }

@@ -31,13 +31,10 @@ public class BookController {
 
     @PostMapping("/new")
     public String create(@Validated BookForm bookForm, BindingResult result){
-        if(result.hasErrors()){ //Valid 동작 안한다 ->스프링으로 바꾸자
+        if(result.hasErrors()){ //TODO : VALIDATED TO WORK
             return "books/createBookForm";
         }
-        Book book = new Book();
-        book.setQuantity(bookForm.getQuantity());
-        book.setIsbn(bookForm.getIsbn());
-        book.setName(bookForm.getName());
+        Book book = Book.createBook(bookForm.getName(),bookForm.getIsbn(),bookForm.getQuantity());
         //setter없이 createBook Method 생성하는것이 더 좋은 설계
 
         bookService.insertBook(book);

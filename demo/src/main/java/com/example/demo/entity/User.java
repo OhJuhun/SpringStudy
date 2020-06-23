@@ -8,6 +8,10 @@ import java.util.List;
 @Entity
 @Table(name="user")
 public class User {
+
+    protected User(){
+
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="user_id", nullable = false)
@@ -64,5 +68,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public static User createUser(String name,String nickname,String email, String password){
+        User user = new User();
+        user.setEmail(email);
+        user.setNickname(nickname);
+        user.setName(name);
+        user.setPassword(password);
+        return user;
     }
 }

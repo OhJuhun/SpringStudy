@@ -37,12 +37,9 @@ public class RentalController {
     @GetMapping
     public String list(@ModelAttribute("rentalSearch") RentalSearch rentalSearch, Model model){
         List<Rental> rentals = rentalService.findMyRentals(rentalSearch);
-        for(Rental rental : rentals){
-            System.out.println(rental.getId());
-        }
-        System.out.println(rentalSearch.getUserName()+" "+rentalSearch.getRentalStatus());
+
         model.addAttribute("rentals",rentals);
-//        model.addAttribute("rentalSearch",rentalSearch);
+
         return "rentals/rentalList";
     }
 
@@ -54,7 +51,6 @@ public class RentalController {
         param.put("user_id",userId);
         param.put("book_id",bookId);
         //d이렇게 짜면 안된다!!!유지보수가 안좋음!!!!
-        System.out.println(userId+ " "+bookId);
         rentalService.insertRental(param);
         return "redirect:/rentals/new";
     }
