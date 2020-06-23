@@ -65,8 +65,7 @@ public class BookController {
 
     @PostMapping("/{bookId}/edit")
     public String updateBook(@PathVariable("bookId") Long bookId,@ModelAttribute("bookForm") BookForm bookForm ){
-        Book book =new Book();
-        book.setQuantity(bookForm.getQuantity());
+        Book book = Book.createBook(bookForm.getName(),bookForm.getIsbn(),bookForm.getQuantity());
         bookService.modifyBook(bookId,book);
         //값을 변경할 method를 하나 구현해 두는 것이 좋다
         return "redirect:/books";
