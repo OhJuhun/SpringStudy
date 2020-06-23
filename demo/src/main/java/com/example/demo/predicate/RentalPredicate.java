@@ -1,13 +1,8 @@
 package com.example.demo.predicate;
 
-import com.example.demo.entity.RentalSearch;
 import com.example.demo.entity.RentalStatus;
-import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.Visitor;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
-
-import javax.annotation.Nullable;
 
 import static com.example.demo.entity.QRental.rental;
 

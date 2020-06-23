@@ -3,7 +3,7 @@ package com.example.demo.service;
 
 import com.example.demo.entity.Book;
 import com.example.demo.entity.Rental;
-import com.example.demo.entity.RentalSearch;
+import com.example.demo.dto.RentalSearch;
 import com.example.demo.entity.User;
 import com.example.demo.repository.BookRepository;
 import com.example.demo.repository.RentalRepository;
@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -55,8 +56,11 @@ public class RentalService {
     }
 
     @Transactional
-    public void modifyRental(Rental rental){
+    public void returnRental(Long id){
         //TODO  write how to modify rental info
+        Optional<Rental> rental = rentalRepository.findById(id);
+        rental.get().setReturnDate(LocalDate.now());
+        rentalRepository.save(rental.get());
     }
     @Transactional
     public void deleteRental(Long id){

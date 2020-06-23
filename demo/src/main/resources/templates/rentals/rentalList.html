@@ -6,47 +6,47 @@
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
     <div>
         <div>
-        <form th:object="${RentalSearch}" class="form-inline">
+        <form th:object="${rentalSearch}" class="form-inline">
             <div class="form-group mb-2">
-            <input type="text" th:field="*{userName}" class="form- control" placeholder="회원명"/>
-        </div>
-            <div class="form-group mx-sm-1 mb-2">
-                <select th:field="*{rentalStatus}" class="form-control">
-                    <option value="">주문상태</option>
-                    <option th:each="status : $ {T(com.example.demo.entity.RentalStatus.values()}"
-                            th:value="${status}"
-                            th:text="${status}">option
-                    </option>
-                </select>
+                <input type="text" th:field="*{userName}" class="form-control" placeholder="회원명"/>
             </div>
-            <button type="submit" class="btn btn-primary mb-2">검색</button>
+            <utton type="submit" class="btn btn-primary mb-2">검색</utton>
         </form>
     </div>
         <table class="table table-striped">
             <thead>
             <tr>
                 <th>#</th>
-                <th>회원명</th> <th>도서명</th>
-                <th>도서명</th> <th>상태</th> <th>일시</th> <th></th>
-</tr>
-</thead>
-    <tbody>
-    <tr th:each="item : ${rentals}">
-        <td th:t
-        > </td>
-    </tr>
-    </tbody>
-</table>
-</div>
-<div th:replace="fragments/footer :: footer"/> </div> <!-- /container -->
+                <th>회원명</th>
+                <th>도서명</th>
+                <th>대여일시</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${rentals}">
+                <td th:text="${item.id}"></td>
+                <td th:text="${item.user.name}"></td>
+                <td th:text="${item.book.name}"></td>
+                <td th:text="${item.rentDate}"></td>
+                <td>
+                    <a th:if="${item.returnDate == null}" href="#" th:href="'javascript:cancel('+${item.id}+')'"
+                       class="btn btn-danger">반납하기</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:replace="fragments/footer :: footer"/> </div> <!-- /container -->
 </body>
 <script>
-function cancel(id) {
-var form = document.createElement("form");
-form.setAttribute("method", "post");
-form.setAttribute("action", "/rentals/" + id + "/cancel");
-document.body.appendChild(form);
-form.submit();
+    function cancel(id) {
+        console.log(id);
+        var form = document.createElement("form");
+        form.setAttribute("method", "post");
+        form.setAttribute("action", "/rentals/" + id + "/cancel");
+        document.body.appendChild(form);
+        form.submit();
      }
 </script>
 </html>
