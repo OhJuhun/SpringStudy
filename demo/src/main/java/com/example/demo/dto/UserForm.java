@@ -1,11 +1,18 @@
 package com.example.demo.dto;
 
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
 public class UserForm {
 
+    @NotEmpty(message="이름은 필수입니다.")
     private String name;
+    @Email(message="올바른 이메일을 입력해주세요.")
     private String email;
+    @NotEmpty(message="닉네임은 필수입니다.")
     private String nickname;
+    @NotEmpty(message="비밀번호는 필수입니다.")
     private String password;
 
     public UserForm(){

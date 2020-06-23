@@ -34,7 +34,6 @@ public class BookController {
         if(result.hasErrors()){
             return "books/createBookForm";
         }
-        System.out.println(bookForm.getName()+ " This is Book Form");
         Book book = Book.createBook(bookForm.getName(),bookForm.getIsbn(),bookForm.getQuantity());
         //setter없이 createBook Method 생성하는것이 더 좋은 설계
 

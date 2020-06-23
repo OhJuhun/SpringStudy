@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class UserController {
     }
 
     @PostMapping("/new")
-    public String create(UserForm userForm, BindingResult result){
+    public String create(@Valid UserForm userForm, BindingResult result){
         //valid 이후 BindResult가 있으 오류가 담겨서 실행됨
         if(result.hasErrors()){
             return "users/createUserForm";

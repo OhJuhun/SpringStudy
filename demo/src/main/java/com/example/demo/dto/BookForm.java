@@ -2,16 +2,20 @@ package com.example.demo.dto;
 
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class BookForm {
 
     private Long id; //수정이 있으므로
 
-    @NotEmpty(message="we need name")
+    @NotEmpty(message="도서명은 필수입니다.")
     private String name;
 
+    @Size(message="ISBN 12자리는 필수입니다.",min=12,max=12)
     private String isbn;
 
+    @NotNull(message="수량은 필수입니다.")
     private Long quantity;
 
     public BookForm(){}
