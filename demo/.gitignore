@@ -3,7 +3,7 @@ HELP.md
 build/
 !gradle/wrapper/gradle-wrapper.jar
 
-generated
+/src/main/generated
 
 !**/src/main/**
 !**/src/test/**
