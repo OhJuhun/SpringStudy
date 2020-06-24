@@ -23,7 +23,6 @@ public class RestBookController {
     BookService bookService;
 
     //CRUD만 만들기
-
     /*
      * TODO : CREATE NEW BOOK INFO
      *  Created 201, Processed but not created 200, No Result to Return 204
@@ -88,6 +87,8 @@ public class RestBookController {
 
     /*
      * TODO : DELETE BOOK BY ID
+     *  ACCEPTED 202
+     *  NOT FOUND 404
      */
     @DeleteMapping("/{id}")
     public ResponseEntity deleteBook(@PathVariable("id") Long id){
