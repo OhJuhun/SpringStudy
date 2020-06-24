@@ -79,8 +79,8 @@ public class RestUserController {
     public ResponseEntity getUserByNickname(@PathVariable("nickname") String nickname){
         Optional<User> user = userService.getUserByNickname(nickname);
 
-        return user.map(response ->{
-            return new ResponseEntity(response,HttpStatus.OK);})
+        return user.map(response ->
+            new ResponseEntity(response,HttpStatus.OK))
                 .orElse(new ResponseEntity(HttpStatus.NOT_FOUND));
         //Optional With ResponseEntity
     }
