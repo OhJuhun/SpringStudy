@@ -28,11 +28,11 @@ public class Rental {
     @Column(name="return_date", nullable = true)
     private LocalDate returnDate;
 
-    @ManyToOne(targetEntity = User.class, fetch=FetchType.LAZY, cascade =CascadeType.ALL) //save시 같이 save
+    @ManyToOne(targetEntity = User.class, /*fetch=FetchType.LAZY,*/ cascade =CascadeType.ALL) //save시 같이 save
     @JoinColumn(name="user_id",insertable = false, updatable = false)
     private User user;
 
-    @ManyToOne(targetEntity = Book.class, fetch=FetchType.LAZY, cascade =CascadeType.ALL) //무분별하게 사용은 ㄴㄴ
+    @ManyToOne(targetEntity = Book.class, /*fetch=FetchType.LAZY,*/ cascade =CascadeType.ALL) //무분별하게 사용은 ㄴㄴ
     @JoinColumn(name="book_id",insertable = false, updatable = false)                   //다른 class에서 참조하면 각각 persist
     private Book book;
 
