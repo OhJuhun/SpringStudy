@@ -43,12 +43,16 @@
 ## Optional
     값을 발견하지 못한 경우 null return
     미사용시 [], '' return
+    Lambda로 주로 사용
+    return OptionalObj.map(response ->
+            new ResponseEntity(response,HttpStatus.OK))
+                .orElse(new ResponseEntity(HttpStatus.NOT_FOUND));
 
 ## ResponseEntity
     HttpEntity를 상속 -> HttpHeader, Body를 가질 수 있다.
     HttpStatus와 함께 사용 -> 협업시 최적화된 모듈
     ResponseEntity.ok(Object)
-    ResponseEntity(msg,httpHeaders,httpStatus)  -> Best?
+    ResponseEntity(msg,httpStatus) -> Best?
     ResponseEntity(httpStatus)
 
 ## EntityManager vs JpaRepository
@@ -148,6 +152,13 @@
 
 ### IlligalStateException
     중복된 값 insert시 발생시키는 Exception
+
+### InvalidDefinitionException
+    hibernate Lazy loading Exception
+    연관관계가 있는 Entity를 Lazy하게 가져오려다가 실패
+    해결
+        Object == JSON 이어야 할 경우 FetchType=LAZY를 없애준다
+        else @JsonIgnore을t nested 객체에 붙인다.
 ## Warn
 ### uses unchecked or unsafe operations
     경고 제거를 위해 raw Type -> Type 지정
