@@ -21,7 +21,6 @@ public class RestUserController {
     @Autowired
     private UserService userService; //query
 
-
     /*
      * TODO : CREATE NEW USER INFO
      *  Created 201, Processed but not created 200, No Result to Return 204
@@ -48,10 +47,9 @@ public class RestUserController {
     @GetMapping
     public ResponseEntity getAllUsers(){
         List<User> users = userService.getUsers();
-        if(users==null){
+        if(users.isEmpty()){
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
-
         return new ResponseEntity(users,HttpStatus.OK);
     }
 
@@ -63,7 +61,7 @@ public class RestUserController {
     @GetMapping("/name/{name}")
     public ResponseEntity getUsersByName(@PathVariable("name") String name){
         List<User> users = userService.getUserByName(name);
-        if(users ==null){
+        if(users.isEmpty()){
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity(users,HttpStatus.OK);

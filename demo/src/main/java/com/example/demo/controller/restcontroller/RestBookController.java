@@ -1,20 +1,15 @@
 package com.example.demo.controller.restcontroller;
 
 import com.example.demo.entity.Book;
-import com.example.demo.exception.NotFoundException;
-import com.example.demo.repository.BookRepository;
 import com.example.demo.service.BookService;
-import com.sun.media.sound.InvalidDataException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
+
+
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/book")
@@ -48,7 +43,7 @@ public class RestBookController {
     @GetMapping
     public ResponseEntity getAllBooks(){
         List<Book> books = bookService.getBooks();
-        if(books==null){
+        if(books.isEmpty()){
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity(books,HttpStatus.OK);

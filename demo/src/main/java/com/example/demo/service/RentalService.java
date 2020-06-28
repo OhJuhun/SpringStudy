@@ -60,6 +60,7 @@ public class RentalService {
         //TODO  write how to modify rental info
         Optional<Rental> rental = rentalRepository.findById(id);
         rental.get().setReturnDate(LocalDate.now());
+        rental.get().getBook().setQuantity(rental.get().getBook().getQuantity()+1);
         rentalRepository.save(rental.get());
     }
     @Transactional
