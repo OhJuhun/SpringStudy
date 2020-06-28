@@ -1,12 +1,10 @@
 package com.example.demo.controller.restcontroller;
 
 import com.example.demo.dto.RentalSearch;
-import com.example.demo.dto.RentalVO;
+import com.example.demo.vo.RentalVO;
 import com.example.demo.entity.Rental;
 import com.example.demo.service.RentalService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,8 +47,10 @@ public class RestRentalController {
     public ResponseEntity getAllRentals(){
         List<Rental> rentals = rentalService.getRentals(); //Rental정보 get
         List<RentalVO> rentalVOs = new ArrayList<>();
+
         for(Rental rental : rentals){
-            RentalVO rentalVO = RentalVO.createRentalVO(rental.getUser().getNickname()
+            RentalVO rentalVO = RentalVO.createRentalVO(rental.getId()
+                    ,rental.getUser().getNickname()
                     ,rental.getBook().getName()
                     ,rental.getRentDate()
                     ,rental.getReturnDate());
