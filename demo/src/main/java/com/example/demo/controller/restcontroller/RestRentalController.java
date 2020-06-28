@@ -1,6 +1,7 @@
 package com.example.demo.controller.restcontroller;
 
 import com.example.demo.dto.RentalSearch;
+import com.example.demo.dto.RentalVO;
 import com.example.demo.entity.Rental;
 import com.example.demo.service.RentalService;
 import org.apache.coyote.Response;
@@ -46,9 +47,17 @@ public class RestRentalController {
      */
     @GetMapping
     public ResponseEntity getAllRentals(){
-        List<Rental> rentals = rentalService.getRentals();
-        if(rentals==null) return new ResponseEntity(HttpStatus.NOT_FOUND);
-        return new ResponseEntity(rentals,HttpStatus.OK);
+        List<Rental> rentals = rentalService.getRentals(); //Rental정보 get
+        List<RentalVO> rentalVOs = new ArrayList<>();
+        for(Rental rental : rentals){
+            RentalVO rentalVO = RentalVO.createRentalVO(rental.getUser().getNickname()
+                    ,rental.getBook().getName()
+                    ,rental.getRentDate()
+                    ,rental.getReturnDate());
+            rentalVOs.add(rentalVO);
+        }
+        if(rentals==null) return new ResponseEntity(HttpStatus.NOT_FOUND); //VO를 사용하여 Fetch= Lazy 문제 해결
+        return new ResponseEntity(rentalVOs,HttpStatus.OK);
     }
 
     /*

@@ -21,7 +21,7 @@ import java.util.Optional;
 public class RestBookController {
     @Autowired
     BookService bookService;
-
+    //Autowired보다 생성자를 활용한 주입이 더 좋음
     //CRUD만 만들기
     /*
      * TODO : CREATE NEW BOOK INFO
@@ -44,6 +44,7 @@ public class RestBookController {
      *  Return 200
      *  Not Found 404
      */
+
     @GetMapping
     public ResponseEntity getAllBooks(){
         List<Book> books = bookService.getBooks();
