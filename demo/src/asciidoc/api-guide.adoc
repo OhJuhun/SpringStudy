@@ -33,3 +33,12 @@ include::{snippets}/user/insert/http-request.adoc[]
 include::{snippets}/user/insert/http-response.adoc[]
 ==== Respone Body
 include::{snippets}/user/insert/response-body.adoc[]
+
+[[resources-user-delete]]
+=== 유저 삭제
+==== Request
+include::{snippets}/user/delete/http-request.adoc[]
+==== Response
+include::{snippets}/user/delete/http-response.adoc[]
+==== Respone Body
+include::{snippets}/user/delete/response-body.adoc[]

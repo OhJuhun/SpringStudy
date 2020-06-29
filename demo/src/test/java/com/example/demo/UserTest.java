@@ -24,6 +24,7 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -71,5 +72,13 @@ public class UserTest  {
                 .andExpect(status().isCreated())
                 .andDo(print())
                 .andDo(UserDocumentation.insertUser());
+    }
+
+    @Test
+    public void deleteUser() throws Exception{
+        this.mockMvc.perform(delete("/user/3"))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andDo(UserDocumentation.deleteUser());
     }
 }

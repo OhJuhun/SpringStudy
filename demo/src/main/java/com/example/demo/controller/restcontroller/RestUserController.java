@@ -108,6 +108,7 @@ public class RestUserController {
      */
     @DeleteMapping("/{id}")
     public ResponseEntity deleteUser(@PathVariable("id") Long id){
+        
         try{
             userService.deleteUser(id);
         }
