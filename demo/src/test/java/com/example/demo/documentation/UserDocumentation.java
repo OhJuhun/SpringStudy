@@ -18,6 +18,10 @@ public class UserDocumentation {
         );
     }
 
+    public static RestDocumentationResultHandler getUserByNickname(){
+        return document("user/getByNickname");
+    }
+
     public static RestDocumentationResultHandler insertUser(){
         return document("user/insert");
     }
@@ -25,4 +29,9 @@ public class UserDocumentation {
     public static RestDocumentationResultHandler deleteUser(){
         return document("user/delete");
     }
+
+    public static RestDocumentationResultHandler modifyUser(){
+        return document("user/modify");
+    }
+
 }

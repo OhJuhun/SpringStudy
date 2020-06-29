@@ -20,13 +20,16 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.ShallowEtagHeaderFilter;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -65,6 +68,14 @@ public class UserTest  {
     }
 
     @Test
+    public void getByNickName() throws Exception{
+        this.mockMvc.perform(get("/user/nickname/is"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("MyName")))
+                .andDo(print())
+                .andDo(UserDocumentation.getUserByNickname());
+    }
+    @Test
     public void insertUser() throws Exception{
         this.mockMvc.perform(post("/user")
                 .contentType("application/json;charset=UTF-8")
@@ -80,5 +91,15 @@ public class UserTest  {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andDo(UserDocumentation.deleteUser());
+    }
+
+    @Test
+    public void modifyUser() throws Exception{
+        this.mockMvc.perform(put("/user")
+                .contentType("application/json;charset=UTF-8")
+                .content("{\"id\":\"1\",\"nickname\":\"myname3\",\"name\":\"mytestname3\",\"password\":\"mytestp3w\",\"email\":\"mytest3ma@naver.com\"}"))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andDo(UserDocumentation.modifyUser());
     }
 }

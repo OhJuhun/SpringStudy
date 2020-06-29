@@ -25,6 +25,15 @@ include::{snippets}/user/getAll/http-response.adoc[]
 ==== Response Body
 include::{snippets}/user/getAll/response-body.adoc[]
 
+[[resources-user-getByNickname]]
+=== 닉네임 사용 유저 조회
+==== Requset
+include::{snippets}/user/getByNickname/http-request.adoc[]
+==== Response
+include::{snippets}/user/getByNickname/http-response.adoc[]
+==== Response Body
+include::{snippets}/user/getByNickname/response-body.adoc[]
+
 [[resources-user-insert]]
 === 유저 추가
 ==== Request
@@ -42,3 +51,12 @@ include::{snippets}/user/delete/http-request.adoc[]
 include::{snippets}/user/delete/http-response.adoc[]
 ==== Respone Body
 include::{snippets}/user/delete/response-body.adoc[]
+
+[[resources-user-modify]]
+=== 유저 수정
+==== Request
+include::{snippets}/user/modify/http-request.adoc[]
+==== Response
+include::{snippets}/user/modify/http-response.adoc[]
+==== Respone Body
+include::{snippets}/user/modify/response-body.adoc[]

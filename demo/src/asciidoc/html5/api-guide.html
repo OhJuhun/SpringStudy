@@ -440,8 +440,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#resources-user">User</a>
 <ul class="sectlevel2">
 <li><a href="#resources-user-getAll">유저 전체 조회</a></li>
+<li><a href="#resources-user-getByNickname">닉네임 사용 유저 조회</a></li>
 <li><a href="#resources-user-insert">유저 추가</a></li>
 <li><a href="#resources-user-delete">유저 삭제</a></li>
+<li><a href="#resources-user-modify">유저 수정</a></li>
 </ul>
 </li>
 </ul>
@@ -468,15 +470,15 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-ETag: "0a85917739627074b0188714ce74242cb"
+ETag: "04cc8e576a68a43512c09aadd3d11c865"
 Content-Length: 718
 
 [ {
   "id" : 1,
-  "nickname" : "ojh031",
-  "name" : "오주훈",
-  "password" : "dhwngns2",
-  "email" : "newEmail2@naver.com"
+  "nickname" : "myname",
+  "name" : "mytestname",
+  "password" : "mytestpw",
+  "email" : "mytestma@naver.com"
 }, {
   "id" : 3,
   "nickname" : "ojh0315",
@@ -517,10 +519,10 @@ Content-Length: 718
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code>[ {
   "id" : 1,
-  "nickname" : "ojh031",
-  "name" : "오주훈",
-  "password" : "dhwngns2",
-  "email" : "newEmail2@naver.com"
+  "nickname" : "myname",
+  "name" : "mytestname",
+  "password" : "mytestpw",
+  "email" : "mytestma@naver.com"
 }, {
   "id" : 3,
   "nickname" : "ojh0315",
@@ -557,6 +559,51 @@ Content-Length: 718
 </div>
 </div>
 <div class="sect2">
+<h3 id="resources-user-getByNickname"><a class="link" href="#resources-user-getByNickname">닉네임 사용 유저 조회</a></h3>
+<div class="sect3">
+<h4 id="_requset_2"><a class="link" href="#_requset_2">Requset</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /user/nickname/is HTTP/1.1
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_response_2"><a class="link" href="#_response_2">Response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+ETag: "0420ca7179e1753c0b36eabe5051f9846"
+Content-Length: 110
+
+{
+  "id" : 10,
+  "nickname" : "is",
+  "name" : "MyName",
+  "password" : "1234",
+  "email" : "ohjh@naver.com"
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_response_body_2"><a class="link" href="#_response_body_2">Response Body</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code>{
+  "id" : 10,
+  "nickname" : "is",
+  "name" : "MyName",
+  "password" : "1234",
+  "email" : "ohjh@naver.com"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="resources-user-insert"><a class="link" href="#resources-user-insert">유저 추가</a></h3>
 <div class="sect3">
 <h4 id="_request"><a class="link" href="#_request">Request</a></h4>
@@ -572,7 +619,7 @@ Host: localhost:8080
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_2"><a class="link" href="#_response_2">Response</a></h4>
+<h4 id="_response_3"><a class="link" href="#_response_3">Response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 201 Created</code></pre>
@@ -600,7 +647,7 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_3"><a class="link" href="#_response_3">Response</a></h4>
+<h4 id="_response_4"><a class="link" href="#_response_4">Response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK</code></pre>
@@ -616,12 +663,44 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="resources-user-modify"><a class="link" href="#resources-user-modify">유저 수정</a></h3>
+<div class="sect3">
+<h4 id="_request_3"><a class="link" href="#_request_3">Request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /user HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Content-Length: 105
+Host: localhost:8080
+
+{"id":"1","nickname":"myname3","name":"mytestname3","password":"mytestp3w","email":"mytest3ma@naver.com"}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_response_5"><a class="link" href="#_response_5">Response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_respone_body_3"><a class="link" href="#_respone_body_3">Respone Body</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code></code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-06-29 17:09:34 +0900
+Last updated 2020-06-29 17:30:59 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/github.min.css">
