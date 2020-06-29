@@ -24,3 +24,12 @@ include::{snippets}/user/getAll/http-request.adoc[]
 include::{snippets}/user/getAll/http-response.adoc[]
 ==== Response Body
 include::{snippets}/user/getAll/response-body.adoc[]
+
+[[resources-user-insert]]
+=== 유저 추가
+==== Request
+include::{snippets}/user/insert/http-request.adoc[]
+==== Response
+include::{snippets}/user/insert/http-response.adoc[]
+==== Respone Body
+include::{snippets}/user/insert/response-body.adoc[]

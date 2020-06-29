@@ -15,6 +15,7 @@ import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.ShallowEtagHeaderFilter;
@@ -23,6 +24,7 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -34,6 +36,7 @@ import java.util.List;
 @ExtendWith(RestDocumentationExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
+@Transactional
 public class UserTest  {
 
     @Autowired
@@ -58,6 +61,15 @@ public class UserTest  {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andDo(UserDocumentation.getUsers());
+    }
 
+    @Test
+    public void insertUser() throws Exception{
+        this.mockMvc.perform(post("/user")
+                .contentType("application/json;charset=UTF-8")
+                .content("{\"nickname\":\"testnickname\",\"name\":\"testname\",\"password\":\"testpw\",\"email\":\"testmail@naver.com\"}"))
+                .andExpect(status().isCreated())
+                .andDo(print())
+                .andDo(UserDocumentation.insertUser());
     }
 }

@@ -17,4 +17,8 @@ public class UserDocumentation {
 //                )
         );
     }
+
+    public static RestDocumentationResultHandler insertUser(){
+        return document("user/insert");
+    }
 }
