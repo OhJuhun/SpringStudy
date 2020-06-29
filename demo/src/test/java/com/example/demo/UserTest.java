@@ -1,80 +1,62 @@
 package com.example.demo;
 
 import com.example.demo.controller.restcontroller.RestUserController;
-
+import com.example.demo.documentation.UserDocumentation;
+import com.example.demo.entity.User;
+import com.example.demo.service.UserService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.restdocs.RestDocumentationContextProvider;
+import org.springframework.restdocs.RestDocumentationExtension;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.ShallowEtagHeaderFilter;
 
-import static org.hamcrest.Matchers.containsString;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.transaction.annotation.Transactional;
 
-@WebMvcTest(RestUserController.class)
-//@ExtendWith(SpringExtension.class)
-@AutoConfigureRestDocs(outputDir = "target/snippets")
-public class UserTest extends AbstractControllerTest {
-    static final String base = "/user";
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+
+@ExtendWith(RestDocumentationExtension.class)
+@SpringBootTest
+@AutoConfigureMockMvc
+public class UserTest  {
+
     @Autowired
-    RestUserController restUserController;
+    private MockMvc mockMvc;
 
-    @Override
-    protected Object controller(){
-        return restUserController;
+    @Autowired
+    private UserService userService;
+
+
+    @BeforeEach
+    public void setUp(WebApplicationContext webApplicationContext, RestDocumentationContextProvider restDocumentation) {
+        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
+                .addFilter(new ShallowEtagHeaderFilter())
+                .addFilter(new CharacterEncodingFilter(StandardCharsets.UTF_8.name(), true))
+                .apply(documentationConfiguration(restDocumentation))
+                .build();
     }
 
     @Test
-    void findAllTest() throws Exception {
-        mockMvc.perform(get(base))
+    public void getAll() throws Exception{
+        this.mockMvc.perform(get("/user"))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("ojh")))
-                .andDo(document("user"));
-    }
+                .andDo(print())
+                .andDo(UserDocumentation.getUsers());
 
-    @Test
-    void findByNameTest() throws Exception{
-        final String additional = "/getByName?";
-        final String key = "name";
-        final String value = "Jonny";
-        final String uri = base+additional+key+"="+value;
-        mockMvc.perform(get(uri))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    void insertTest() throws Exception{
-        mockMvc.perform(post(base)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"nickname\":\"ojh03177\"," +
-                        "\"name\":\"오훈\"," +
-                        "\"password\":\"1q2w3e4r\"," +
-                        "\"email\":\"ojh031@netmarble.com\"" +
-                        "}")) //이게 최선은 아닐거 같은데
-                .andExpect(status().isCreated());
-    }
-
-    @Test
-    void modifyEmailTest() throws Exception{
-        mockMvc.perform(patch(base+"/modifyEmail?nickname=ojh031&password=dhwngns&newEmail=newEmail2@naver.com")
-        ).andExpect(status().isOk());
-    }
-    @Test
-    void modifyPasswordTest() throws Exception {
-        mockMvc.perform(patch(base+"/modifyPassword?nickname=ojh031&password=dhwngns&newPassword=dhwngns2")
-        ).andExpect(status().isOk());
-    }
-
-    @Test
-    void deleteTest() throws Exception{
-        mockMvc.perform(delete(base+"?nickname=ojh03177&password=1q2w3e4r")
-        ).andExpect(status().isOk());
     }
 }

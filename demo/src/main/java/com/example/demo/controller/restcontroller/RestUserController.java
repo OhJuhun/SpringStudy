@@ -18,6 +18,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/user")
 public class RestUserController {
+
     @Autowired
     private UserService userService; //query
 

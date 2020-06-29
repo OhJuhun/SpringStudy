@@ -2,8 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.3.1.RELEASE' //이것의 버전에 따라 라이브러리 버전 관리도 해줌.
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
-	id 'org.asciidoctor.convert' version '1.5.6'
-
+	id 'org.asciidoctor.convert' version '1.5.9.2'
 }
 
 group = 'com.example'
@@ -12,9 +11,18 @@ sourceCompatibility = '1.8'
 def queryDSLVersion = '4.2.2' //version
 def generated = "src/main/generated"// QueryDSL PATH
 
+ext {
+	snippetsDir = file('build/generated-snippets')
+}
+
 asciidoctor {
-	sourceDir 'src/main/asciidoc'
-	attributes 'snippets': file('target/snippets')
+	backends 'html5'
+	sourceDir 'src/asciidoc'						//adoc route
+//	//attributes 'snippets': file('target/snippets')
+	attributes 'snippets' : file(snippetsDir)	//
+	inputs.dir snippetsDir
+	dependsOn test
+	outputDir 'src/asciidoc'
 }
 
 repositories {
@@ -54,6 +62,7 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+	outputs.dir snippetsDir
 }
 
 bootRun{
@@ -69,6 +78,11 @@ bootJar { //gradlew build
 	manifest {
 		attributes 'Start-Class': 'com.example.demo.DemoApplication'
 	}
+	dependsOn asciidoctor
+	from ("${asciidoctor.outputDir}/html5") {
+		into 'static/docs'
+	}
+
 }
  //??
 sourceSets {
