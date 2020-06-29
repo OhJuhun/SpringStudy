@@ -21,6 +21,7 @@ import org.springframework.web.filter.ShallowEtagHeaderFilter;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -47,7 +48,7 @@ public class UserTest  {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
                 .addFilter(new ShallowEtagHeaderFilter())
                 .addFilter(new CharacterEncodingFilter(StandardCharsets.UTF_8.name(), true))
-                .apply(documentationConfiguration(restDocumentation))
+                .apply(documentationConfiguration(restDocumentation).operationPreprocessors().withResponseDefaults(prettyPrint()))
                 .build();
     }
 

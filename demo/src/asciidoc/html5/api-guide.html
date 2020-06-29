@@ -451,25 +451,106 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="resources-user-getAll"><a class="link" href="#resources-user-getAll">유저 전체 조회</a></h3>
+<div class="sect3">
+<h4 id="_requset"><a class="link" href="#_requset">Requset</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /user HTTP/1.1
 Host: localhost:8080</code></pre>
 </div>
 </div>
+</div>
+<div class="sect3">
+<h4 id="_response"><a class="link" href="#_response">Response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
 ETag: "0a85917739627074b0188714ce74242cb"
-Content-Length: 555
+Content-Length: 718
 
-[{"id":1,"nickname":"ojh031","name":"오주훈","password":"dhwngns2","email":"newEmail2@naver.com"},{"id":3,"nickname":"ojh0315","name":"jonny","password":"1q2w3e4r","email":"myEmail@naver.com"},{"id":7,"nickname":"JonyA","name":"JonnyOh","password":"12345","email":"jj@kakao.com"},{"id":10,"nickname":"is","name":"MyName","password":"1234","email":"ohjh@naver.com"},{"id":11,"nickname":"ojh123","name":"ojh","password":"1234","email":"ojh0315@icl.com"},{"id":12,"nickname":"Jonny","name":"Jonny Johansson","password":"AN","email":"ceo@acnestudios.com"}]</code></pre>
+[ {
+  "id" : 1,
+  "nickname" : "ojh031",
+  "name" : "오주훈",
+  "password" : "dhwngns2",
+  "email" : "newEmail2@naver.com"
+}, {
+  "id" : 3,
+  "nickname" : "ojh0315",
+  "name" : "jonny",
+  "password" : "1q2w3e4r",
+  "email" : "myEmail@naver.com"
+}, {
+  "id" : 7,
+  "nickname" : "JonyA",
+  "name" : "JonnyOh",
+  "password" : "12345",
+  "email" : "jj@kakao.com"
+}, {
+  "id" : 10,
+  "nickname" : "is",
+  "name" : "MyName",
+  "password" : "1234",
+  "email" : "ohjh@naver.com"
+}, {
+  "id" : 11,
+  "nickname" : "ojh123",
+  "name" : "ojh",
+  "password" : "1234",
+  "email" : "ojh0315@icl.com"
+}, {
+  "id" : 12,
+  "nickname" : "Jonny",
+  "name" : "Jonny Johansson",
+  "password" : "AN",
+  "email" : "ceo@acnestudios.com"
+} ]</code></pre>
 </div>
 </div>
+</div>
+<div class="sect3">
+<h4 id="_response_body"><a class="link" href="#_response_body">Response Body</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code>[{"id":1,"nickname":"ojh031","name":"오주훈","password":"dhwngns2","email":"newEmail2@naver.com"},{"id":3,"nickname":"ojh0315","name":"jonny","password":"1q2w3e4r","email":"myEmail@naver.com"},{"id":7,"nickname":"JonyA","name":"JonnyOh","password":"12345","email":"jj@kakao.com"},{"id":10,"nickname":"is","name":"MyName","password":"1234","email":"ohjh@naver.com"},{"id":11,"nickname":"ojh123","name":"ojh","password":"1234","email":"ojh0315@icl.com"},{"id":12,"nickname":"Jonny","name":"Jonny Johansson","password":"AN","email":"ceo@acnestudios.com"}]</code></pre>
+<pre class="highlightjs highlight nowrap"><code>[ {
+  "id" : 1,
+  "nickname" : "ojh031",
+  "name" : "오주훈",
+  "password" : "dhwngns2",
+  "email" : "newEmail2@naver.com"
+}, {
+  "id" : 3,
+  "nickname" : "ojh0315",
+  "name" : "jonny",
+  "password" : "1q2w3e4r",
+  "email" : "myEmail@naver.com"
+}, {
+  "id" : 7,
+  "nickname" : "JonyA",
+  "name" : "JonnyOh",
+  "password" : "12345",
+  "email" : "jj@kakao.com"
+}, {
+  "id" : 10,
+  "nickname" : "is",
+  "name" : "MyName",
+  "password" : "1234",
+  "email" : "ohjh@naver.com"
+}, {
+  "id" : 11,
+  "nickname" : "ojh123",
+  "name" : "ojh",
+  "password" : "1234",
+  "email" : "ojh0315@icl.com"
+}, {
+  "id" : 12,
+  "nickname" : "Jonny",
+  "name" : "Jonny Johansson",
+  "password" : "AN",
+  "email" : "ceo@acnestudios.com"
+} ]</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -478,7 +559,7 @@ Content-Length: 555
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-06-29 15:36:21 +0900
+Last updated 2020-06-29 15:46:16 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/github.min.css">
