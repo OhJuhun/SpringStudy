@@ -73,7 +73,16 @@ public class UserTest  {
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("MyName")))
                 .andDo(print())
-                .andDo(UserDocumentation.getUserByNickname());
+                .andDo(UserDocumentation.getByNickname());
+    }
+
+    @Test
+    public void getByName() throws Exception{
+        this.mockMvc.perform(get("/user/name/Jonny Johansson"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Jonny")))
+                .andDo(print())
+                .andDo(UserDocumentation.getByName());
     }
     @Test
     public void insertUser() throws Exception{

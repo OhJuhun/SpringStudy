@@ -441,6 +441,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#resources-user-getAll">유저 전체 조회</a></li>
 <li><a href="#resources-user-getByNickname">닉네임 사용 유저 조회</a></li>
+<li><a href="#resources-user-getByName">이름 사용 유저 조회</a></li>
 <li><a href="#resources-user-insert">유저 추가</a></li>
 <li><a href="#resources-user-delete">유저 삭제</a></li>
 <li><a href="#resources-user-modify">유저 수정</a></li>
@@ -604,6 +605,51 @@ Content-Length: 110
 </div>
 </div>
 <div class="sect2">
+<h3 id="resources-user-getByName"><a class="link" href="#resources-user-getByName">이름 사용 유저 조회</a></h3>
+<div class="sect3">
+<h4 id="_requset_3"><a class="link" href="#_requset_3">Requset</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /user/name/Jonny%20Johansson HTTP/1.1
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_response_3"><a class="link" href="#_response_3">Response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+ETag: "0566faa1a33d02e5fb345759c00d95349"
+Content-Length: 129
+
+[ {
+  "id" : 12,
+  "nickname" : "Jonny",
+  "name" : "Jonny Johansson",
+  "password" : "AN",
+  "email" : "ceo@acnestudios.com"
+} ]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_response_body_3"><a class="link" href="#_response_body_3">Response Body</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code>[ {
+  "id" : 12,
+  "nickname" : "Jonny",
+  "name" : "Jonny Johansson",
+  "password" : "AN",
+  "email" : "ceo@acnestudios.com"
+} ]</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="resources-user-insert"><a class="link" href="#resources-user-insert">유저 추가</a></h3>
 <div class="sect3">
 <h4 id="_request"><a class="link" href="#_request">Request</a></h4>
@@ -619,7 +665,7 @@ Host: localhost:8080
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_3"><a class="link" href="#_response_3">Response</a></h4>
+<h4 id="_response_4"><a class="link" href="#_response_4">Response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 201 Created</code></pre>
@@ -647,7 +693,7 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_4"><a class="link" href="#_response_4">Response</a></h4>
+<h4 id="_response_5"><a class="link" href="#_response_5">Response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK</code></pre>
@@ -679,7 +725,7 @@ Host: localhost:8080
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_5"><a class="link" href="#_response_5">Response</a></h4>
+<h4 id="_response_6"><a class="link" href="#_response_6">Response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK</code></pre>
@@ -700,7 +746,7 @@ Host: localhost:8080
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-06-29 17:30:59 +0900
+Last updated 2020-06-29 17:33:09 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/github.min.css">

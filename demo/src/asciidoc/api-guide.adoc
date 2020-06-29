@@ -34,6 +34,15 @@ include::{snippets}/user/getByNickname/http-response.adoc[]
 ==== Response Body
 include::{snippets}/user/getByNickname/response-body.adoc[]
 
+[[resources-user-getByName]]
+=== 이름 사용 유저 조회
+==== Requset
+include::{snippets}/user/getByName/http-request.adoc[]
+==== Response
+include::{snippets}/user/getByName/http-response.adoc[]
+==== Response Body
+include::{snippets}/user/getByName/response-body.adoc[]
+
 [[resources-user-insert]]
 === 유저 추가
 ==== Request

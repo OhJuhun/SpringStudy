@@ -18,10 +18,13 @@ public class UserDocumentation {
         );
     }
 
-    public static RestDocumentationResultHandler getUserByNickname(){
+    public static RestDocumentationResultHandler getByNickname(){
         return document("user/getByNickname");
     }
 
+    public static RestDocumentationResultHandler getByName(){
+        return document("user/getByName");
+    }
     public static RestDocumentationResultHandler insertUser(){
         return document("user/insert");
     }
