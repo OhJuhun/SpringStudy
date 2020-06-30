@@ -19,7 +19,7 @@ asciidoctor {
 	backends 'html5'
 	sourceDir 'src/asciidoc'						//adoc route
 //	//attributes 'snippets': file('target/snippets')
-	attributes 'snippets' : file(snippetsDir)	//
+	attributes 'snippets' : file(snippetsDir)	//snippets route
 	inputs.dir snippetsDir
 	dependsOn test
 	outputDir 'src/asciidoc'

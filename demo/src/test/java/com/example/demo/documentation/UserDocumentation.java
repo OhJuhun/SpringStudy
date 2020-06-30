@@ -8,8 +8,10 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWit
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 
 public class UserDocumentation {
+
+    static final String base = "user/";
     public static RestDocumentationResultHandler getUsers() {
-        return document("user/getAll"
+        return document(base+"getAll"
 //                responseFields(
 //                        fieldWithPath("[].nickname").type(JsonFieldType.STRING).description("This is nickname"),
 //                        fieldWithPath("[].name").type(JsonFieldType.STRING).description("This is name"),
@@ -19,22 +21,22 @@ public class UserDocumentation {
     }
 
     public static RestDocumentationResultHandler getByNickname(){
-        return document("user/getByNickname");
+        return document(base+"getByNickname");
     }
 
     public static RestDocumentationResultHandler getByName(){
-        return document("user/getByName");
+        return document(base+"getByName");
     }
     public static RestDocumentationResultHandler insertUser(){
-        return document("user/insert");
+        return document(base+"insert");
     }
 
     public static RestDocumentationResultHandler deleteUser(){
-        return document("user/delete");
+        return document(base+"delete");
     }
 
     public static RestDocumentationResultHandler modifyUser(){
-        return document("user/modify");
+        return document(base+"modify");
     }
 
 }

@@ -447,6 +447,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#resources-user-modify">유저 수정</a></li>
 </ul>
 </li>
+<li><a href="#resources-book">Book</a>
+<ul class="sectlevel2">
+<li><a href="#resources-book-getAll">도서 전체 조회</a></li>
+<li><a href="#resources-book-insert">도서 전체 조회</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -457,7 +463,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect2">
 <h3 id="resources-user-getAll"><a class="link" href="#resources-user-getAll">유저 전체 조회</a></h3>
 <div class="sect3">
-<h4 id="_requset"><a class="link" href="#_requset">Requset</a></h4>
+<h4 id="_request"><a class="link" href="#_request">Request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /user HTTP/1.1
@@ -562,7 +568,7 @@ Content-Length: 718
 <div class="sect2">
 <h3 id="resources-user-getByNickname"><a class="link" href="#resources-user-getByNickname">닉네임 사용 유저 조회</a></h3>
 <div class="sect3">
-<h4 id="_requset_2"><a class="link" href="#_requset_2">Requset</a></h4>
+<h4 id="_request_2"><a class="link" href="#_request_2">Request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /user/nickname/is HTTP/1.1
@@ -607,7 +613,7 @@ Content-Length: 110
 <div class="sect2">
 <h3 id="resources-user-getByName"><a class="link" href="#resources-user-getByName">이름 사용 유저 조회</a></h3>
 <div class="sect3">
-<h4 id="_requset_3"><a class="link" href="#_requset_3">Requset</a></h4>
+<h4 id="_request_3"><a class="link" href="#_request_3">Request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /user/name/Jonny%20Johansson HTTP/1.1
@@ -652,7 +658,7 @@ Content-Length: 129
 <div class="sect2">
 <h3 id="resources-user-insert"><a class="link" href="#resources-user-insert">유저 추가</a></h3>
 <div class="sect3">
-<h4 id="_request"><a class="link" href="#_request">Request</a></h4>
+<h4 id="_request_4"><a class="link" href="#_request_4">Request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /user HTTP/1.1
@@ -673,7 +679,7 @@ Host: localhost:8080
 </div>
 </div>
 <div class="sect3">
-<h4 id="_respone_body"><a class="link" href="#_respone_body">Respone Body</a></h4>
+<h4 id="_response_body_4"><a class="link" href="#_response_body_4">Response Body</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code></code></pre>
@@ -684,7 +690,7 @@ Host: localhost:8080
 <div class="sect2">
 <h3 id="resources-user-delete"><a class="link" href="#resources-user-delete">유저 삭제</a></h3>
 <div class="sect3">
-<h4 id="_request_2"><a class="link" href="#_request_2">Request</a></h4>
+<h4 id="_request_5"><a class="link" href="#_request_5">Request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">DELETE /user/3 HTTP/1.1
@@ -701,7 +707,7 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_respone_body_2"><a class="link" href="#_respone_body_2">Respone Body</a></h4>
+<h4 id="_response_body_5"><a class="link" href="#_response_body_5">Response Body</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code></code></pre>
@@ -712,7 +718,7 @@ Host: localhost:8080</code></pre>
 <div class="sect2">
 <h3 id="resources-user-modify"><a class="link" href="#resources-user-modify">유저 수정</a></h3>
 <div class="sect3">
-<h4 id="_request_3"><a class="link" href="#_request_3">Request</a></h4>
+<h4 id="_request_6"><a class="link" href="#_request_6">Request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /user HTTP/1.1
@@ -733,7 +739,187 @@ Host: localhost:8080
 </div>
 </div>
 <div class="sect3">
-<h4 id="_respone_body_3"><a class="link" href="#_respone_body_3">Respone Body</a></h4>
+<h4 id="_response_body_6"><a class="link" href="#_response_body_6">Response Body</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="resources-book"><a class="link" href="#resources-book">Book</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="resources-book-getAll"><a class="link" href="#resources-book-getAll">도서 전체 조회</a></h3>
+<div class="sect3">
+<h4 id="_request_7"><a class="link" href="#_request_7">Request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /book HTTP/1.1
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_response_7"><a class="link" href="#_response_7">Response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+ETag: "028c164110ccfdf36eecb22adb7c266be"
+Content-Length: 908
+
+[ {
+  "id" : 1,
+  "name" : "Java 8",
+  "isbn" : "100000000001",
+  "quantity" : 0
+}, {
+  "id" : 2,
+  "name" : "java 99",
+  "isbn" : "102030403020",
+  "quantity" : 6
+}, {
+  "id" : 3,
+  "name" : "JAva",
+  "isbn" : "100000000012",
+  "quantity" : 3
+}, {
+  "id" : 4,
+  "name" : "Java Book",
+  "isbn" : "123456789012",
+  "quantity" : 2
+}, {
+  "id" : 5,
+  "name" : "Java Book",
+  "isbn" : "123456789012",
+  "quantity" : 3
+}, {
+  "id" : 6,
+  "name" : "asdf",
+  "isbn" : "111111111111",
+  "quantity" : 15
+}, {
+  "id" : 7,
+  "name" : "JPA Using",
+  "isbn" : "123412341234",
+  "quantity" : 0
+}, {
+  "id" : 8,
+  "name" : "why",
+  "isbn" : "123456780942",
+  "quantity" : 1
+}, {
+  "id" : 9,
+  "name" : "test",
+  "isbn" : "123412341236",
+  "quantity" : 23
+}, {
+  "id" : 14,
+  "name" : "MyBook",
+  "isbn" : "123456123456",
+  "quantity" : 23
+}, {
+  "id" : 15,
+  "name" : "test",
+  "isbn" : "123456123453",
+  "quantity" : 2
+} ]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_response_body_7"><a class="link" href="#_response_body_7">Response body</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code>[ {
+  "id" : 1,
+  "name" : "Java 8",
+  "isbn" : "100000000001",
+  "quantity" : 0
+}, {
+  "id" : 2,
+  "name" : "java 99",
+  "isbn" : "102030403020",
+  "quantity" : 6
+}, {
+  "id" : 3,
+  "name" : "JAva",
+  "isbn" : "100000000012",
+  "quantity" : 3
+}, {
+  "id" : 4,
+  "name" : "Java Book",
+  "isbn" : "123456789012",
+  "quantity" : 2
+}, {
+  "id" : 5,
+  "name" : "Java Book",
+  "isbn" : "123456789012",
+  "quantity" : 3
+}, {
+  "id" : 6,
+  "name" : "asdf",
+  "isbn" : "111111111111",
+  "quantity" : 15
+}, {
+  "id" : 7,
+  "name" : "JPA Using",
+  "isbn" : "123412341234",
+  "quantity" : 0
+}, {
+  "id" : 8,
+  "name" : "why",
+  "isbn" : "123456780942",
+  "quantity" : 1
+}, {
+  "id" : 9,
+  "name" : "test",
+  "isbn" : "123412341236",
+  "quantity" : 23
+}, {
+  "id" : 14,
+  "name" : "MyBook",
+  "isbn" : "123456123456",
+  "quantity" : 23
+}, {
+  "id" : 15,
+  "name" : "test",
+  "isbn" : "123456123453",
+  "quantity" : 2
+} ]</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="resources-book-insert"><a class="link" href="#resources-book-insert">도서 전체 조회</a></h3>
+<div class="sect3">
+<h4 id="_request_8"><a class="link" href="#_request_8">Request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /book HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Content-Length: 62
+Host: localhost:8080
+
+{"name":"Java 9 in action","isbn":"100000005555","quantity":6}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_response_8"><a class="link" href="#_response_8">Response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 201 Created</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_response_body_8"><a class="link" href="#_response_body_8">Response body</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code></code></pre>
@@ -746,7 +932,7 @@ Host: localhost:8080
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-06-29 17:33:09 +0900
+Last updated 2020-06-30 12:31:24 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/github.min.css">
