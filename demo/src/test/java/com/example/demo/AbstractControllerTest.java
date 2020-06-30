@@ -23,7 +23,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @ExtendWith(RestDocumentationExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-@Transactional
 public abstract class AbstractControllerTest {
     //중복 제거를 위한 추상화
     @Autowired

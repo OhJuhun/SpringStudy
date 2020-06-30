@@ -37,7 +37,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserTest  extends AbstractControllerTest{
+
+@Transactional
+public class UserTest extends AbstractControllerTest{
 
     @Autowired
     private UserService userService;

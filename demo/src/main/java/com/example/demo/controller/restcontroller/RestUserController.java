@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -22,6 +24,7 @@ public class RestUserController {
     @Autowired
     private UserService userService; //query
 
+    static final String idForEncode = "sha256";
     /*
      * TODO : CREATE NEW USER INFO
      *  Created 201, Processed but not created 200, No Result to Return 204
@@ -30,6 +33,9 @@ public class RestUserController {
     @PostMapping
     public ResponseEntity createUser(@RequestBody User user){
         try{
+            PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+            passwordEncoder.encode(user.getPassword());
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             userService.insertUser(user);
         }
         catch(Exception e){
@@ -40,6 +46,31 @@ public class RestUserController {
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
+    /*
+     * TODO : GET By nickname matches password
+     *  Return 200
+     *  Not Found 404
+     */
+    @GetMapping("/{nickname}/{password}")
+    public ResponseEntity login(@PathVariable String nickname,
+                                @PathVariable String password){
+        String responseValue = new String();
+        try{
+
+            Optional<User> user = userService.getUserByNickname(nickname);
+
+            PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+            if(passwordEncoder.matches(password,user.get().getPassword()))
+                responseValue = "It's correct Password";
+            else
+                responseValue = "Not Correct Password";
+
+        }catch(Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
+        }
+        return new ResponseEntity(responseValue,HttpStatus.OK);
+    }
     /*
      * TODO : GET ALL USERS
      *  Return 200
