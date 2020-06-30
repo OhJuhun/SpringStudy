@@ -32,6 +32,11 @@
 ## spring-boot-data-source-decorator
     query Log (?,?) - > (a,b)
     이러한 라이브러리 등은 배포시 성능 관련하여 고민을 해보아야 함.
+## spring-boot-starter-security
+    Spring Security Dependency
+    이를 추가하면 자동으로 default Login Page가 생성된다.
+    Rest API의 경우 로그인 폼이 없으므로 UsernamePasswordAuthenticationFilter를 사용하여 인증, 인가한다.
+    
 
 </details>
 
@@ -135,6 +140,23 @@
     -interface ARepositoryCustom
     -interface ARepositoryImpl extends JpaRepository<A,Long>, ARepositoryCustom
 
+### API Auth 생명주기
+
+## VO vs DTO
+### VO (Value Object)
+    핵심 역할은 equals, hashCode를 override하는 것
+    ***** READ ONLY *****
+### DTO(Data Transfer Object)
+    데이터 전송시 사용하는 Object, 주로 비동기 처리시 사용
+    return value를 Json으로 변환해야 하는 경우, spring-boot-starter-web의 Jackson Library에서 자동 변환
+
+
+## Spring RESTDOCS
+    1. Test Code 작성 후 실행
+    2. target/snippets/**/adoc가 생성됨
+    3. src/main/asciidoc에 adoc 생성
+    4. ./gradlew build asciidoctor로 html파일 생성
+    5. Service MockBean 필수
 </details>
 
  
@@ -159,6 +181,11 @@
     해결
         Object == JSON 이어야 할 경우 FetchType=LAZY를 없애준다
         else @JsonIgnore을t nested 객체에 붙인다.
+        **** Entity를 통한 Data Return을 지양한다. VO, DTO 활용!****
+
+### Test code 작성시 Service를 Autowired가 아닌 MockBean으로 작성시 Service 미동작
+    이유가 뭘까
+    
 ## Warn
 ### uses unchecked or unsafe operations
     경고 제거를 위해 raw Type -> Type 지정
@@ -174,7 +201,7 @@
 ## **** @Autowired ****
     타입과 맞는 것을 찾아 자동 연결
 ## @Transactional
-    트랜잭션화로 자동 RollBack이 가능하다.
+    트랜잭션화로 자동 RollBack이 가능하다 (Spring AOP 기반 Annotation)
     주로 modify, delete 등의 Query에 사용
     Entity Manager에 의한 데이터 변경은 항상 Transaction 안에서 이루어 져야 함
     같은 영속성 Container에서 같은 Entity를 참조하면 같은 값
@@ -203,19 +230,25 @@
     EAGER(즉시로딩)은 예측이 어렵고 어떤 SQL이 실행될 지 추적이 어렵다!! 특히 JPQL에서 N+1 문제 발생
     하나를 가져오면 모든 연관 관계를 Join하여 다 긁어옴 
     LAZY(지연로딩)에서 발생하는 문제는 Fetch Join으로 해결 가능!!
+
 ### @OneToOne
     Default : EAGER
     CascadeType : Persist (저장)을 Mapping Entity에 전파한다.
+
 ### @OneToMany
     Default : LAZY
     1:N 관계
     User -< Rental
     양방향일 경우 MappedBy로 매핑
+
 ### @ManyToOne
     Default : EAGER
     N:1 관계
     Rental -< User
+
 ### @ManyToMany
     Default : LAZY
 
+### @EnableGlobalMethodSecurity
+    Method Level Spring Security
 </details>
