@@ -37,26 +37,15 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-@ExtendWith(RestDocumentationExtension.class)
-@SpringBootTest
-@AutoConfigureMockMvc
-@Transactional
-public class UserTest  {
-
-    @Autowired
-    private MockMvc mockMvc;
+public class UserTest  extends AbstractControllerTest{
 
     @Autowired
     private UserService userService;
 
 
-    @BeforeEach
-    public void setUp(WebApplicationContext webApplicationContext, RestDocumentationContextProvider restDocumentation) {
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
-                .addFilter(new ShallowEtagHeaderFilter())
-                .addFilter(new CharacterEncodingFilter(StandardCharsets.UTF_8.name(), true))
-                .apply(documentationConfiguration(restDocumentation).operationPreprocessors().withResponseDefaults(prettyPrint()))
-                .build();
+    @Override
+    protected Object service() {
+        return userService;
     }
 
     @Test

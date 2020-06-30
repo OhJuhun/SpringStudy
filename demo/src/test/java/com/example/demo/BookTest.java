@@ -30,26 +30,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(RestDocumentationExtension.class)
-@SpringBootTest
-@AutoConfigureMockMvc
-@Transactional
-public class BookTest {
-    
-    @Autowired
-    MockMvc mockMvc;
-    
+
+public class BookTest extends AbstractControllerTest{
+
     @Autowired
     BookService bookService;
-
-    @BeforeEach
-    public void setUp(WebApplicationContext webApplicationContext, RestDocumentationContextProvider restDocumentation) {
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
-                .addFilter(new ShallowEtagHeaderFilter())
-                .addFilter(new CharacterEncodingFilter(StandardCharsets.UTF_8.name(), true))
-                .apply(documentationConfiguration(restDocumentation).operationPreprocessors().withResponseDefaults(prettyPrint()))
-                .build();
+    
+    @Override
+    protected Object service() {
+        return bookService;
     }
+
 
 
     //Method 단위 테스트
