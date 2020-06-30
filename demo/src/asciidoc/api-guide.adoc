@@ -26,7 +26,7 @@ include::{snippets}/user/getAll/http-response.adoc[]
 include::{snippets}/user/getAll/response-body.adoc[]
 
 [[resources-user-getByNickname]]
-=== 닉네임 사용 유저 조회
+=== 닉네임으로 유저 조회
 ==== Request
 include::{snippets}/user/getByNickname/http-request.adoc[]
 ==== Response
@@ -35,7 +35,7 @@ include::{snippets}/user/getByNickname/http-response.adoc[]
 include::{snippets}/user/getByNickname/response-body.adoc[]
 
 [[resources-user-getByName]]
-=== 이름 사용 유저 조회
+=== 이름으로 유저 조회
 ==== Request
 include::{snippets}/user/getByName/http-request.adoc[]
 ==== Response
@@ -83,10 +83,37 @@ include::{snippets}/book/getAll/http-response.adoc[]
 include::{snippets}/book/getAll/response-body.adoc[]
 
 [[resources-book-insert]]
-=== 도서 전체 조회
+=== 도서 추가
 ==== Request
 include::{snippets}/book/insert/http-request.adoc[]
 ==== Response
 include::{snippets}/book/insert/http-response.adoc[]
 ==== Response body
 include::{snippets}/book/insert/response-body.adoc[]
+
+[[resources-book-getByIsbn]]
+=== ISBN으로 도서 검색
+==== Request
+include::{snippets}/book/getByIsbn/http-request.adoc[]
+==== Response
+include::{snippets}/book/getByIsbn/http-response.adoc[]
+==== Response body
+include::{snippets}/book/getByIsbn/response-body.adoc[]
+
+[[resources-book-delete]]
+=== 도서 삭제
+==== Request
+include::{snippets}/book/delete/http-request.adoc[]
+==== Response
+include::{snippets}/book/delete/http-response.adoc[]
+==== Response body
+include::{snippets}/book/delete/response-body.adoc[]
+
+[[resources-book-modify]]
+=== 도서 수정
+==== Request
+include::{snippets}/book/modify/http-request.adoc[]
+==== Response
+include::{snippets}/book/modify/http-response.adoc[]
+==== Response body
+include::{snippets}/book/modify/response-body.adoc[]

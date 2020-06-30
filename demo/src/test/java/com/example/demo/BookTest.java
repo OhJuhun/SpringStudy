@@ -17,6 +17,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.ShallowEtagHeaderFilter;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -26,6 +27,7 @@ import java.nio.charset.StandardCharsets;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(RestDocumentationExtension.class)
@@ -60,7 +62,7 @@ public class BookTest {
     }
 
     @Test
-    void insertBook() throws  Exception{
+    void insertBook() throws Exception{
         this.mockMvc.perform(post("/book")
                 .contentType("application/json;charset=UTF-8")
                 .content("{\"name\":\"Java 9 in action\",\"isbn\":\"100000005555\",\"quantity\":6}"))
@@ -69,6 +71,31 @@ public class BookTest {
                 .andDo(BookDocumentation.insertBook());
     }
 
+    @Test
+    void getBookByIsbn() throws Exception{
+        this.mockMvc.perform(get("/book/123412341234"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("JPA Using")))
+                .andDo(print())
+                .andDo(BookDocumentation.getBookByIsbn());
+    }
 
+    @Test
+    void deleteBook() throws Exception{
+        this.mockMvc.perform(delete("/book/3"))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andDo(BookDocumentation.deleteBook());
+    }
+
+    @Test
+    void modifyBook() throws Exception{
+        this.mockMvc.perform(put("/book/14")
+                .contentType("application/json;charset=UTF-8")
+                .content("{\"name\":\"Your Book\",\"isbn\":\"171717711717\",\"quantity\":8}"))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andDo(BookDocumentation.modifyBook());
+    }
 
 }
